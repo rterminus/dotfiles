@@ -2,23 +2,22 @@ configuration {
     modi: "drun,run,window";
     show-icons: true;
     display-drun: "APPS";
-    display-run: "RUN";
-    display-window: "WINDOW";
     drun-display-format: "{name}";
     font: "IosevkaTerm Nerd Font 12";
 }
 
+@theme "/dev/null" /* This line forces Rofi to drop all default themes */
+
 * {
-    /* Nuanced Palette - Deepened for better contrast */
-    bg-col: #0f0f0f;         /* Darker charcoal for a true dark mode */
-    bg-alt: #1a1a1a;        /* Lighter charcoal for subtle depth */
-    border-col: #333333;    /* Slate Gray border */
-    selected-col: #444444;  /* Slightly lighter gray for active rows */
-    fg-col: #e0e0e0;        /* Soft White text */
-    accent-col: #a0a0a0;    /* Silver accent for the prompt */
+    /* Nuanced Palette */
+    bg: #0f0f0f;
+    bg-alt: #1a1a1a;
+    fg: #e0e0e0;
+    accent: #a0a0a0;
+    border: #333333;
     
-    background-color: transparent; /* Allows transparency if Hyprland blur is on */
-    text-color: @fg-col;
+    background-color: @bg;
+    text-color: @fg;
     margin: 0;
     padding: 0;
     spacing: 0;
@@ -26,71 +25,52 @@ configuration {
 
 window {
     width: 450px;
-    border: 1px;            /* Thinner border for a cleaner look */
-    border-color: @border-col;
-    background-color: @bg-col;
-    border-radius: 8px;     /* Matches your system-wide rounded corners */
+    border: 1px;
+    border-color: @border;
+    border-radius: 12px;
 }
 
 mainbox {
-    background-color: @bg-col;
     children: [inputbar, listview];
 }
 
 inputbar {
+    background-color: @bg-alt;
     children: [prompt, entry];
-    background-color: @bg-alt; /* Subtle contrast for the search area */
     padding: 12px;
-    border: 0px 0px 1px 0px;   /* Separator line under input */
-    border-color: @border-col;
 }
 
 prompt {
     background-color: transparent;
-    padding: 0px 10px;
-    text-color: @accent-col;
-    font: "IosevkaTerm Nerd Font Bold 12";
+    text-color: @accent;
+    padding: 0 10px;
 }
 
 entry {
     background-color: transparent;
-    text-color: @fg-col;
-    placeholder: "Search...";
-    placeholder-color: #666666;
 }
 
 listview {
     padding: 10px;
-    columns: 1;
     lines: 8;
-    background-color: @bg-col;
-    fixed-height: false;
 }
 
 element {
-    padding: 10px;
-    margin: 2px 0px;
+    padding: 8px;
     background-color: transparent;
-    text-color: @fg-col;
-    border-radius: 4px;
 }
 
 element selected {
-    background-color: @selected-col;
-    text-color: @fg-col;
-    /* Optional: Silver border for the selection to make it "pop" */
-    border: 0px 0px 0px 4px;
-    border-color: @accent-col;
+    background-color: @border; /* Subtle slate gray highlight */
+    border-radius: 6px;
 }
 
 element-icon {
     size: 24px;
     padding: 0 10px 0 0;
-    background-color: transparent;
 }
 
 element-text {
     vertical-align: 0.5;
-    background-color: transparent;
     text-color: inherit;
 }

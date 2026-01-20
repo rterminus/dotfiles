@@ -1,39 +1,19 @@
 [global]
-    # Font and Typography
     font = IosevkaTerm Nerd Font 10
-    
-    # Geometry and Position
-    width = 300
-    height = 110
-    offset = 20x20
-    origin = top-right
-    corner_radius = 10
-
-    # Nuanced Palette
-    # Format: background, foreground, frame
-    frame_color = "#333333" # Slate Gray
-    separator_color = frame
-    
-    # Progress Bar (for volume/brightness)
-    progress_bar_height = 8
-    progress_bar_frame_width = 1
-    progress_bar_min_width = 150
-    progress_bar_max_width = 300
-
-[urgency_low]
-    background = "#1a1a1a"
+    # Charcoal & Silver aesthetic
+    background = "#0f0f0f"
     foreground = "#e0e0e0"
-    timeout = 5
+    frame_color = "#333333"
+    highlight = "#a0a0a0"
+    
+    # Geometry for a "snappy" feel
+    width = 300
+    height = 120
+    offset = 15x15
+    corner_radius = 10
+    frame_width = 1
 
 [urgency_normal]
-    background = "#1a1a1a"
-    foreground = "#e0e0e0"
-    timeout = 10
-    # Silver accent for normal notifications
+    # Use your silver accent for the border of active alerts
     frame_color = "#a0a0a0"
-
-[urgency_critical]
-    background = "#0f0f0f"
-    foreground = "#ffffff"
-    frame_color = "#ff3117" # Keep a subtle red for alerts
-    timeout = 0
+    timeout = 10
