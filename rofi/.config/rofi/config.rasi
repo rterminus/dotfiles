@@ -6,7 +6,7 @@ configuration {
     font: "IosevkaTerm Nerd Font 12";
 }
 
-@theme "/dev/null" /* This line forces Rofi to drop all default themes */
+@theme "/dev/null" 
 
 * {
     /* Nuanced Palette */
@@ -14,7 +14,7 @@ configuration {
     bg-alt: #1a1a1a;
     fg: #e0e0e0;
     accent: #a0a0a0;
-    border: #333333;
+    border-col: #333333; /* Renamed to avoid conflict with 'border' property */
     
     background-color: @bg;
     text-color: @fg;
@@ -26,7 +26,7 @@ configuration {
 window {
     width: 450px;
     border: 1px;
-    border-color: @border;
+    border-color: @border-col;
     border-radius: 12px;
 }
 
@@ -48,29 +48,38 @@ prompt {
 
 entry {
     background-color: transparent;
+    text-color: @fg;
 }
 
 listview {
     padding: 10px;
     lines: 8;
+    background-color: @bg;
 }
 
 element {
     padding: 8px;
     background-color: transparent;
+    border-radius: 6px;
 }
 
 element selected {
-    background-color: @border; /* Subtle slate gray highlight */
-    border-radius: 6px;
+    /* Subtle slate selection background */
+    background-color: @border-col; 
+    text-color: @fg;
+    /* 2px Silver accent on the left */
+    border: 0px 0px 0px 2px;  
+    border-color: @accent;
 }
 
 element-icon {
     size: 24px;
     padding: 0 10px 0 0;
+    background-color: transparent;
 }
 
 element-text {
     vertical-align: 0.5;
     text-color: inherit;
+    background-color: transparent;
 }
