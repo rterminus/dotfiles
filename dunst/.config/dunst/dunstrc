@@ -1,17 +1,14 @@
 [global]
     font = IosevkaTerm Nerd Font 10
     
-    # Nuanced Charcoal aesthetic with 80% transparency (CC) for blur
     background = "#0f0f0fCC" 
     foreground = "#e0e0e0"
     frame_color = "#333333"
     highlight = "#a0a0a0"
     
-    # Separator between grouped notifications
     separator_height = 2
     separator_color = "#333333"
     
-    # Spacing & Geometry
     width = 280            # Slightly thinner for a more "refined" look
     height = 110           # Lowered to match your 22px Waybar aesthetic
     offset = 15x15
@@ -19,15 +16,12 @@
     corner_radius = 12     # Matches your Waybar bubble radius
     frame_width = 1
     
-    # Better Spacing: Adds a gap between multiple notifications
     gap_size = 10
     
-    # Refined internal padding for a "snappy" feel
     padding = 10
     horizontal_padding = 12
     text_icon_padding = 10
     
-    # Progress bar for Spotify/Volume (Silver accent)
     progress_bar = true
     progress_bar_height = 4
     progress_bar_frame_width = 1
