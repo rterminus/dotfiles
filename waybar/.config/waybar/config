@@ -2,14 +2,11 @@
     "layer": "top",
     "position": "top",
     "height": 20,
-    "margin-top": 0,
-    "margin-left": 0,
-    "margin-right": 0,
     "spacing": 4,
 
-    "modules-left": ["hyprland/workspaces", "mpris"],
+    "modules-left": ["hyprland/workspaces", "mpris", "custom/updates", "custom/caffeine"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
+    "modules-right": ["cpu", "custom/gpu", "memory", "disk", "temperature", "pulseaudio", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "{name}",
@@ -18,23 +15,60 @@
         "sort-by-number": true
     },
 
+    "custom/caffeine": {
+        "format": "<span rise='-1000'>{}</span>",
+        "exec": "if pgrep -x hypridle > /dev/null; then echo '󰈈 '; else echo '󰈉 '; fi",
+        "interval": 2,
+        "on-click": "~/.config/waybar/scripts/caffeine.sh",
+        "tooltip": true,
+        "tooltip-format": "Toggle Hypridle"
+    },
+
+    "custom/updates": {
+        "format": "󰚰 {}",
+        "interval": 3600,
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "on-click": "alacritty -e yay -Syu", 
+        "signal": 8
+    },
+
     "mpris": {
         "format": "{player_icon} {title} - {artist}",
         "format-paused": "󰏤 {title} - {artist}",
-        "player-icons": {
-            "default": "󰐊",
-            "spotify": ""
-        },
-        "status-icons": {
-            "paused": "󰏤"
-        },
+        "player-icons": { "default": "󰐊", "spotify": "" },
+        "status-icons": { "paused": "󰏤" },
         "max-length": 40
     },
 
     "clock": {
         "interval": 60,
-        "format": "󰃭 {:%d/%m   %H:%M}", // Shows Date and Time together
+        "format": "󰃭 {:%d/%m   %H:%M}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": { "default": ["", "", ""] },
+        "on-click": "pavucontrol"
+    },
+
+    "cpu": { "format": " {usage}%" },
+
+    "custom/gpu": {
+        "exec": "cat /sys/class/hwmon/hwmon4/device/gpu_busy_percent",
+        "interval": 5,
+        "format": "󰢮 {}%",
+        "tooltip": false
+    },
+
+    "memory": { "format": " {}%" },
+
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/"
     },
 
     "temperature": {
@@ -45,25 +79,10 @@
         "format-icons": ["", "", ""]
     },
 
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "",
-        "format-icons": { "default": ["", "", ""] },
-        "on-click": "pavucontrol"
-    },
-
-    "network": {
-        "format-wifi": " {essid}",
-        "format-ethernet": "󰈀",
-        "format-disconnected": "⚠",
-        "tooltip-format": "{ipaddr} | {bitrate}Mbps"
-    },
-
-    "cpu": { "format": " {usage}%" },
-    "memory": { "format": " {}%" },
     "battery": {
         "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
+
     "tray": { "icon-size": 15, "spacing": 10 }
 }

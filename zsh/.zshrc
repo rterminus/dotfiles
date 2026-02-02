@@ -29,6 +29,9 @@ export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 
 eval "$(tmuxifier init -)"
 
+export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
+
 alias c='clear'
 alias cl='clear && fastfetch'
 alias v='nvim'

@@ -1,36 +1,60 @@
 configuration {
     font: "IosevkaTerm Nerd Font 12";
+    show-icons: false;
 }
 
 * {
-    bg-col:  #1a1a1a;
-    border-col: #333333;
-    selected-col: #333333;
+    /* Explicitly use your Waybar semi-transparent charcoal */
+    bg-col:  rgba(26, 26, 26, 0.7);
+    border-col: rgba(160, 160, 160, 0.2);
+    /* Subtle silver for selection - slightly lighter than background */
+    selected-col: rgba(160, 160, 160, 0.15);
     fg-col: #e0e0e0;
     
-    background-color: @bg-col;
+    background-color: transparent;
     text-color: @fg-col;
 }
 
 window {
-    width: 250px;
-    border: 2px;
+    width: 280px;
+    border: 1px;
     border-color: @border-col;
+    border-radius: 12px;
+    background-color: @bg-col; /* This ensures the main bubble isn't white */
     location: center;
     anchor: center;
+    padding: 10px;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [ listview ];
 }
 
 listview {
+    background-color: transparent;
     lines: 4;
-    padding: 10px;
-    spacing: 5px;
+    spacing: 8px;
+    scrollbar: false;
+    fixed-height: true;
 }
 
 element {
-    padding: 10px;
-    border-radius: 4px;
+    padding: 12px 15px;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit; /* Keeps text consistent with the element state */
+    vertical-align: 0.5;
 }
 
 element selected {
-    background-color: @selected-col;
+    /* Using a dark selection background to keep white text readable */
+    background-color: rgba(160, 160, 160, 0.2);
+    text-color: #ffffff;
+    border: 1px;
+    border-color: rgba(255, 255, 255, 0.3);
 }
