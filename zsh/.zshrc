@@ -37,7 +37,7 @@ alias cl='clear && fastfetch'
 alias v='nvim'
 alias nv='nvim'
 alias vim='nvim'
-alias fastfetch='fastfetch --logo-type kitty'
+alias fastfetch='fastfetch --config ~/.config/fastfetch/config.jsonc'
 alias neofetch='fastfetch'
 
 if command -v eza > /dev/null; then
