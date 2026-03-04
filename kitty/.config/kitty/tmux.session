@@ -1,2 +1,1 @@
-# Inicia o tmux dentro da primeira janela do Kitty
 launch --cwd=current --type=os-window zsh -c "tmux attach-session -t default || tmux new-session -s default"
