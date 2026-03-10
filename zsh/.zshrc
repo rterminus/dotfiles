@@ -36,6 +36,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # aliases
 alias cat='bat --style=plain --paging=never'
 alias preview='bat --style=numbers --color=always'
+alias q='exit'
 alias c='clear'
 alias cff='clear && fastfetch'
 alias v='nvim'
