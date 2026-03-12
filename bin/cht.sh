@@ -14,7 +14,7 @@ read -p "$selected (Query): " query
 query=$(echo $query | tr ' ' '+')
 
 if echo "$languages" | grep -qs $selected; then
-    curl -s cht.sh/$selected/$query | less -R
+    curl -s cht.sh/$selected/$query | bat -R
 else
-    curl -s cht.sh/$selected~$query | less -R
+    curl -s cht.sh/$selected~$query | bat -R
 fi
