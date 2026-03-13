@@ -58,10 +58,10 @@ require("yatline"):setup({
 		},
 		right = {
 			section_a = {
-				{ type = "string", name = "date", params = { "%A, %d %B %Y" } },
+				-- { type = "string", name = "date", params = { "%A, %d %B %Y" } },
 			},
 			section_b = {
-				{ type = "string", name = "date", params = { "%X" } },
+				-- { type = "string", name = "date", params = { "%X" } },
 			},
 			section_c = {},
 		},

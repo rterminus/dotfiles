@@ -3,7 +3,7 @@
     "position": "top",
     "exclusive": false,
     "passthrough": false,
-    "height": 20, 
+    "height": 22, 
     "margin-top": 8,
     "spacing": 0,
 
@@ -32,7 +32,7 @@
         "tooltip-format": "<tt>{calendar}</tt>",
         "calendar": {
             "format": {
-                "today": "<span color='#fAfBfC'><b>{}</b></span>"
+                "today": "<span color='#ffffff'><b>{}</b></span>"
             }
         }
     },
@@ -44,8 +44,15 @@
         "on-click": "hyprctl dispatch exec \"[float; size 550 450; center] kitty -e nmtui\""
     },
 
-    "cpu": { "format": "󰍛 {usage}%", "interval": 2 },
-    "memory": { "format": "󰘚 {percentage}%", "interval": 2 },
+    "cpu": { 
+        "format": "󰍛 {usage}%", 
+        "interval": 2 
+    },
+    
+    "memory": { 
+        "format": "󰘚 {percentage}%", 
+        "interval": 2 
+    },
 
     "custom/caffeine": {
         "format": "{}",
@@ -66,5 +73,8 @@
         "format-icons": ["󰂎", "󰁺", "󰁹"]
     },
 
-    "tray": { "icon-size": 15, "spacing": 10 }
+    "tray": { 
+        "icon-size": 15, 
+        "spacing": 10 
+    }
 }
