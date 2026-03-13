@@ -1,5 +1,5 @@
 configuration {
-    font: "IosevkaTerm Nerd Font 11";
+    font: "IosevkaTerm Nerd Font 12";
     show-icons: true;
 }
 
@@ -10,7 +10,7 @@ configuration {
     fg: #d8d8d8;
     accent: #ffffff;
     border-col: #444444;
-    
+
     background-color: transparent;
     text-color: @fg;
     margin: 0;

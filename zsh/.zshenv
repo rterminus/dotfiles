@@ -6,7 +6,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export EDITOR="nvim"
-export BROWSER="zen-browser" # Ou seu navegador de preferência
+export BROWSER="zen-browser"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PNPM_HOME:$PATH"

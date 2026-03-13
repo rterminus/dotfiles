@@ -1,10 +1,12 @@
 configuration {
-    modi: "drun,run";
+    modi: "drun,run,filebrowser,calc,emoji,clip:~/.config/rofi/cliphist.sh";
     show-icons: true; 
     display-drun: "❯ "; 
     display-run: " ";
+    display-emoji: "󰞅 ";
+    display-clipboard: " ";
     drun-display-format: "{name}";
-    font: "IosevkaTerm Nerd Font 11"; 
+    font: "IosevkaTerm Nerd Font 12"; 
 }
 
 @theme "/dev/null"
@@ -16,7 +18,7 @@ configuration {
     fg-alt: #666666;
     accent: #ffffff;
     border-col: #444444; 
-    
+
     background-color: transparent;
     text-color: @fg;
     margin: 0;
