@@ -17,3 +17,6 @@ export CLUTTER_BACKEND=wayland
 
 # Start the engine
 exec start-hyprland
+
+exec swww-daemon
+exec swww img /home/terminus/Pictures/grdwpp.png
