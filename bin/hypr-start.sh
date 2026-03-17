@@ -23,7 +23,3 @@ fi
 
 # start the engine
 exec start-hyprland
-
-# wpp init
-exec swww-daemon
-exec swww img /home/terminus/Pictures/grdwpp.png
