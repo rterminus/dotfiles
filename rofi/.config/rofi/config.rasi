@@ -1,5 +1,5 @@
 configuration {
-    modi: "drun,run,filebrowser,calc,emoji,clip:~/.config/rofi/cliphist.sh";
+    modi: "drun,run,calc,emoji,clip:~/.config/rofi/cliphist.sh";
     show-icons: true; 
     display-drun: "❯ "; 
     display-run: " ";
