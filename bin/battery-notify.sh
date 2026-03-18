@@ -20,7 +20,7 @@ while true; do
     elif [ "$STAT" = "Charging" ] || [ "$STAT" = "Full" ]; then
         if [ "$CAP" -ge "$FULL" ] && [ "$CAP" -lt 100 ]; then
              notify-send -a "Power" -r 5 -i "battery-full" "Battery Charged" "You can unplug ($CAP%)"
-             sleep 600
+             sleep 1000
         fi
     fi
     sleep 60
