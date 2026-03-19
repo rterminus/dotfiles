@@ -13,7 +13,7 @@
     height = 110
     offset = 15x15
     origin = top-right
-    corner_radius = 0
+    corner_radius = 2
     frame_width = 2
     
     gap_size = 10
