@@ -12,8 +12,8 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #111111;
-    bg-alt: #1a1a1a;
+    bg: #111111CC;
+    bg-alt: #1a1a1aCC;
     fg: #d8d8d8;
     fg-alt: #666666;
     accent: #ffffff;
@@ -75,7 +75,7 @@ element {
 }
 
 element selected {
-    background-color: #1e1e1e;
+    background-color: #1e1e1eCC;
     text-color: @accent; 
     border-color: @accent;
 }
