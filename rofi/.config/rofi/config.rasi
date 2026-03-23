@@ -12,12 +12,12 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #111111CC;
-    bg-alt: #1a1a1aCC;
+    bg: #11111199;
+    bg-alt: #1a1a1a99;
     fg: #d8d8d8;
     fg-alt: #666666;
     accent: #ffffff;
-    border-col: #444444; 
+    border-col: #444444;
 
     background-color: transparent;
     text-color: @fg;
@@ -47,14 +47,14 @@ inputbar {
 }
 
 prompt {
-    text-color: @accent; 
+    text-color: @accent;
     padding: 0 8px 0 0;
     font: "IosevkaTerm Nerd Font Bold 12";
 }
 
 entry {
     text-color: @fg;
-    placeholder: "Search system..."; 
+    placeholder: "Search system...";
     placeholder-color: @fg-alt;
     blink: true;
 }
@@ -75,7 +75,7 @@ element {
 }
 
 element selected {
-    background-color: #1e1e1eCC;
+    background-color: #1e1e1e99;
     text-color: @accent; 
     border-color: @accent;
 }
