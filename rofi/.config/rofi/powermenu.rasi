@@ -6,7 +6,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #111111CC;
+    bg: #11111199;
     fg: #d8d8d8;
     accent: #ffffff;
     border-col: #444444;
@@ -51,7 +51,7 @@ element {
 }
 
 element selected {
-    background-color: #1e1e1eCC;
+    background-color: #1e1e1e99;
     text-color: @accent;
     border-color: @accent;
 }

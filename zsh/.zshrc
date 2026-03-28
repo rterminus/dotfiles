@@ -46,11 +46,18 @@ alias vim='nvim'
 alias ff='fastfetch --config ~/.config/fastfetch/config.jsonc'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 alias hypr-start='~/dotfiles/bin/hypr-start.sh'
 alias pkgupd='sudo pacman -Syyu && yay -Syyu'
 if command -v eza > /dev/null; then
-    alias l='eza -l --icons --git -a'
-    alias ll='eza --tree --level=2 --icons'
+    alias ls='eza --icons'
+    alias ll='eza -l --icons --git --group-directories-first'
+    alias la='eza -la --icons --git --group-directories-first'
+    alias lt='eza -l --tree --level=2 --icons --git --group-directories-first'
+    alias lti='eza -l --tree --level=2 --icons --git --git-ignore --group-directories-first'
+    alias ld='eza -lD --icons --git'
 fi
 
 function y() {
