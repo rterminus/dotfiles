@@ -1,14 +1,14 @@
 configuration {
-    font: "IosevkaTerm Nerd Font 12";
-    show-icons: true;
+    font: "IosevkaTerm Nerd Font 11";
+    show-icons: false;
 }
 
 @theme "/dev/null"
 
 * {
-    bg: #11111199;
-    fg: #d8d8d8;
-    accent: #ffffff;
+    bg: #0D0D0D;
+    fg: #eeeeee;
+    accent: #444444;
     border-col: #444444;
 
     background-color: transparent;
@@ -18,10 +18,10 @@ configuration {
 }
 
 window {
-    width: 160px;
-    border: 2px;
+    width: 150px;
+    border: 1px;
     border-color: @border-col;
-    border-radius: 2px;
+    border-radius: 0px;
     background-color: @bg;
     location: center;
     anchor: center;
@@ -34,36 +34,23 @@ mainbox {
 listview {
     columns: 1;
     lines: 4;
-    spacing: 4px;
+    spacing: 2px;
     scrollbar: false;
     dynamic: true;
     fixed-height: false;
-    padding: 8px;
+    padding: 6px;
 }
 
 element {
     padding: 8px 10px;
-    background-color: transparent;
-    border-radius: 0px;
-    border: 0 0 0 2px;
-    border-color: transparent;
-    spacing: 10px;
 }
 
 element selected {
-    background-color: #1e1e1e99;
-    text-color: @accent;
-    border-color: @accent;
-}
-
-element-icon {
-    size: 20px;
-    vertical-align: 0.5;
-    background-color: transparent;
+    background-color: @accent;
+    text-color: #eeeeee;
 }
 
 element-text {
     vertical-align: 0.5;
     text-color: inherit;
-    background-color: transparent;
 }

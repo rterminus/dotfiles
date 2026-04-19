@@ -1,23 +1,22 @@
 configuration {
-    modi: "drun,run,calc,emoji,clip:~/.config/rofi/cliphist.sh";
-    show-icons: true; 
-    display-drun: "❯ "; 
-    display-run: " ";
-    display-emoji: "󰞅 ";
-    display-clipboard: " ";
+    modi: "drun,calc,emoji,clip:~/.config/rofi/cliphist.sh";
+    show-icons: false;
+    display-drun: "app > ";
+    display-calc: "clc > ";
+    display-emoji: "emo > ";
+    display-clip: "clp > ";
     drun-display-format: "{name}";
-    font: "IosevkaTerm Nerd Font 12"; 
+    font: "IosevkaTerm Nerd Font 11";
 }
 
 @theme "/dev/null"
 
 * {
-    bg: #11111199;
-    bg-alt: #1a1a1a99;
-    fg: #d8d8d8;
-    fg-alt: #666666;
-    accent: #ffffff;
-    border-col: #444444;
+    bg: #0D0D0D;
+    bg-alt: #1A1A1A;
+    fg: #eeeeee;
+    fg-alt: #B8B8B8;
+    accent: #444444;
 
     background-color: transparent;
     text-color: @fg;
@@ -27,10 +26,9 @@ configuration {
 }
 
 window {
-    width: 450px;
-    border: 1px;
-    border-color: @border-col;
-    border-radius: 2px;
+    width: 400px;
+    border: 1px; border-color: @accent;
+    border-radius: 0px;
     background-color: @bg;
 }
 
@@ -43,24 +41,24 @@ inputbar {
     children: [prompt, entry];
     padding: 12px;
     border: 0 0 1px 0;
-    border-color: @border-col;
+    border-color: @accent;
 }
 
 prompt {
-    text-color: @accent;
-    padding: 0 8px 0 0;
-    font: "IosevkaTerm Nerd Font Bold 12";
+    text-color: @fg-alt;
+    padding: 0 4px 0 0;
+    font: "IosevkaTerm Nerd Font Bold 11";
 }
 
 entry {
     text-color: @fg;
-    placeholder: "Search system...";
-    placeholder-color: @fg-alt;
+    placeholder: "search...";
+    placeholder-color: @accent;
     blink: true;
 }
 
 listview {
-    padding: 8px;
+    padding: 4px;
     lines: 8;
     scrollbar: false;
     fixed-height: true;
@@ -68,21 +66,12 @@ listview {
 
 element {
     padding: 6px 10px;
-    margin: 2px 0;
-    border-radius: 0px;
-    border: 0 0 0 2px;
-    border-color: transparent;
+    margin: 1px 0;
 }
 
 element selected {
-    background-color: #1e1e1e99;
-    text-color: @accent; 
-    border-color: @accent;
-}
-
-element-icon {
-    size: 18px;
-    padding: 0 10px 0 0;
+    background-color: @accent;
+    text-color: #eeeeee;
 }
 
 element-text {

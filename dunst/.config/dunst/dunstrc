@@ -1,47 +1,47 @@
 [global]
     font = IosevkaTerm Nerd Font 10
     
-    background = "#11111199"
-    foreground = "#d8d8d8"
-    frame_color = "#44444480"
-    highlight = "#ffffff"
+    background = "#030303"
+    foreground = "#eeeeee"
+    frame_color = "#1A1A1A"
+    highlight = "#D6D6D6"
     
     separator_height = 2
-    separator_color = "#44444480"
+    separator_color = "#4C4C4C"
     
     width = 280
     height = 110
     offset = 15x15
     origin = top-right
+    
     corner_radius = 2
     frame_width = 2
     
     gap_size = 10
-    
     padding = 10
     horizontal_padding = 12
     text_icon_padding = 10
     
     progress_bar = true
     progress_bar_height = 4
-    progress_bar_frame_width = 1
+    progress_bar_frame_width = 0
     progress_bar_min_width = 150
     progress_bar_max_width = 280
 
 [urgency_low]
-    background = "#11111199"
-    foreground = "#666666"
-    frame_color = "#22222280"
+    background = "#030303"
+    foreground = "#888888"
+    frame_color = "#1A1A1A"
     timeout = 5
 
 [urgency_normal]
-    background = "#11111199"
-    foreground = "#d8d8d8"
-    frame_color = "#44444480"
+    background = "#030303"
+    foreground = "#eeeeee"
+    frame_color = "#4C4C4C"
     timeout = 10
 
 [urgency_critical]
-    background = "#11111199"
-    foreground = "#ffffff"
-    frame_color = "#ffffff80"
+    background = "#D6D6D6"
+    foreground = "#030303"
+    frame_color = "#FCFCFC"
     timeout = 0

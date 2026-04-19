@@ -1,80 +1,109 @@
 {
     "layer": "top",
     "position": "top",
-    "exclusive": false,
+    "exclusive": true,
     "passthrough": false,
-    "height": 22, 
-    "margin-top": 4,
+    "height": 26,
+    "margin-top": 0,
     "spacing": 0,
 
-    "modules-left": [],
-    "modules-center": [
+    "modules-left": [
         "hyprland/workspaces",
+        "custom/media",
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+        "custom/updates",
+        "custom/caffeine",
+        "temperature",
         "cpu",
         "memory",
-        "custom/caffeine",
-        "clock",
         "pulseaudio",
-        "battery",
         "network",
-        "tray"
+        "custom/separator",
+        "tray",
+        "clock",
+        "battery",
     ],
-    "modules-right": [],
 
     "hyprland/workspaces": {
-        "format": "{name}",
+        "format": "[{name}]",
         "on-click": "activate"
+    },
+
+    "custom/media": {
+        "format": " {} ",
+        "exec": "playerctl metadata --format 'med:{{artist}} - {{title}}' --follow 2>/dev/null",
+        "max-length": 45,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "escape": true
+    },
+
+    "custom/updates": {
+        "format": "pkg:{}",
+        "interval": 3600,
+        "exec": "checkupdates | wc -l",
+        "exec-if": "exit 0",
+        "on-click": "kitty -e sudo pacman -Syu",
+        "signal": 8
+    },
+
+    "custom/separator": {
+        "format": " │ ",
+        "tooltip": false
     },
 
     "clock": {
         "interval": 1,
-        "format": "󰃭 {:%d/%m   %H:%M:%S}",
-        "tooltip-format": "<tt>{calendar}</tt>",
-        "calendar": {
-            "format": {
-                "today": "<span color='#ffffff'><b>{}</b></span>"
-            }
-        }
+        "format": "{:%d/%m %H:%M:%S}",
+        "tooltip-format": "<tt>{calendar}</tt>"
     },
 
     "network": {
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰈀",
-        "format-disconnected": "󰖪",
+        "format-wifi": "net:{essid}",
+        "format-ethernet": "net:eth",
+        "format-disconnected": "net:dwn",
         "on-click": "hyprctl dispatch exec \"[float; size 550 450; center] kitty -e nmtui\""
     },
 
     "cpu": { 
-        "format": "󰍛 {usage}%", 
+        "format": "cpu:{usage}%", 
         "interval": 2 
     },
     
     "memory": { 
-        "format": "󰘚 {percentage}%", 
-        "interval": 2 
+        "format": "mem:{percentage}%",
+        "interval": 2
     },
 
     "custom/caffeine": {
-        "format": "{}",
-        "exec": "if pgrep -x hypridle > /dev/null; then echo '󰈈 '; else echo '󰈉 '; fi",
+        "format": "caf:{}",
+        "exec": "if pgrep -x hypridle > /dev/null; then echo 'on'; else echo 'off'; fi",
         "interval": 2,
         "on-click": "~/.config/waybar/scripts/caffeine.sh"
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟",
-        "format-icons": { "default": ["󰕿", "󰖀", "󰕾"] },
+        "format": "vol:{volume}%",
+        "format-muted": "vol:mut",
         "on-click": "hyprctl dispatch exec \"[float; size 700 400; center] kitty -e pulsemixer\""
     },
 
     "battery": {
-        "format": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁹"]
+        "format": "bat:{capacity}%"
     },
 
-    "tray": { 
-        "icon-size": 15, 
-        "spacing": 10 
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "critical-threshold": 80,
+        "format": "tmp:{temperatureC}C"
+    },
+    
+    "tray": {
+        "icon-size": 14,
+        "spacing": 8
     }
 }

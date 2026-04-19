@@ -22,8 +22,19 @@ function zvm_after_init() {
     eval "$(starship init zsh)"
 }
 eval "$(zoxide init zsh)"
+eval "$(tv init zsh)"
 eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_OPTS=" \
+--layout=reverse \
+--info=inline \
+--border=rounded \
+--prompt='> ' \
+--pointer='>' \
+--marker='*' \
+--color='fg:-1,bg:-1,fg+:-1,bg+:8' \
+--color='hl:4,hl+:12,info:3,prompt:2,pointer:1,marker:5,spinner:6,header:6'"
+export BAT_STYLE="numbers,changes"
 
 eval "$(tmuxifier init -)"
 
@@ -39,6 +50,7 @@ alias cat='bat --style=plain --paging=never'
 alias preview='bat --style=numbers --color=always'
 alias q='exit'
 alias c='clear'
+alias g='git'
 alias cff='clear && fastfetch'
 alias v='nvim'
 alias nv='nvim'

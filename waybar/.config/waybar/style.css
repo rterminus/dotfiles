@@ -1,5 +1,5 @@
 * {
-  font-family: "IosevkaTerm Nerd Font";
+  font-family: "IosevkaTerm Nerd Font", monospace;
   font-size: 12px;
   font-weight: bold;
   margin: 0;
@@ -8,47 +8,59 @@
 
 window#waybar {
   background-color: transparent;
+  /* border-bottom: 1px solid #1A1A1A; */
 }
 
 .modules-center {
-  background-color: rgba(17, 17, 17, 0.6);
-  border: 1px solid rgba(68, 68, 68, 0.5);
-  border-radius: 2px;
+  background-color: transparent;
   padding: 0px;
 }
 
 #workspaces,
+#custom-caffeine,
+#custom-updates,
+#custom-separator,
+#temperature,
 #cpu,
 #memory,
-#custom-caffeine,
 #clock,
 #pulseaudio,
 #battery,
 #network {
-  padding: 2px 10px;
-  color: #d8d8d8;
+  padding: 0px 8px;
+  color: #888888;
   border-radius: 0px;
 }
 
+#custom-media,
+#clock,
+#battery {
+  color: #B8B8B8;
+}
+
+#custom-separator {
+  color: #4C4C4C;
+}
+
 #tray {
-  padding: 2px 10px;
-  color: #d8d8d8;
+  padding: 0px 8px;
   border-right: none;
 }
 
 #workspaces button {
-  color: #666666;
-  padding: 0 8px;
+  color: #4C4C4C;
+  padding: 0 4px;
   border-radius: 0px;
   border: none;
 }
 
 #workspaces button.active {
-  color: #ffffff;
+  background-color: #333333;
+  color: #B8B8B8;
 }
 
 #workspaces button:hover {
-  background-color: rgba(34, 34, 34, 0.5);
+  background-color: #1A1A1A;
   box-shadow: none;
   text-shadow: none;
 }
