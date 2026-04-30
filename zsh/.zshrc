@@ -3,6 +3,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
 
 autoload -Uz compinit
 compinit
@@ -26,14 +28,16 @@ eval "$(tv init zsh)"
 eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_DEFAULT_OPTS=" \
---layout=reverse \
---info=inline \
---border=rounded \
---prompt='> ' \
---pointer='>' \
---marker='*' \
---color='fg:-1,bg:-1,fg+:-1,bg+:8' \
---color='hl:4,hl+:12,info:3,prompt:2,pointer:1,marker:5,spinner:6,header:6'"
+    --layout=reverse \
+    --info=inline \
+    --border=rounded \
+    --prompt='> ' \
+    --pointer='>' \
+    --marker='*' \
+    --color='fg:-1,bg:-1,fg+:-1,bg+:8' \
+    --color='hl:4,hl+:12,info:3,prompt:2,pointer:1,marker:5,spinner:6,header:6'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
 export BAT_STYLE="numbers,changes"
 
 eval "$(tmuxifier init -)"
@@ -80,8 +84,30 @@ function y() {
     rm -f -- "$tmp"
 }
 
+function ex() {
+    if [ -f "$1" ] ; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"   ;;
+            *.tar.gz)    tar xzf "$1"   ;;
+            *.bz2)       bunzip2 "$1"   ;;
+            *.rar)       unrar x "$1"   ;;
+            *.gz)        gunzip "$1"    ;;
+            *.tar)       tar xf "$1"    ;;
+            *.tbz2)      tar xjf "$1"   ;;
+            *.tgz)       tar xzf "$1"   ;;
+            *.zip)       unzip "$1"     ;;
+            *.Z)         uncompress "$1";;
+            *.7z)        7z x "$1"      ;;
+            *.tar.xz)    tar xf "$1"    ;;
+            *)           echo "'$1' cannot be extracted by ex()" ;;
+        esac
+    else
+        echo "'$1' not a valid file"
+    fi
+}
+
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 export PATH=$PATH:/home/terminus/.spicetify

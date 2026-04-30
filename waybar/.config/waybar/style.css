@@ -55,12 +55,12 @@ window#waybar {
 }
 
 #workspaces button.active {
-  background-color: #333333;
   color: #B8B8B8;
 }
 
 #workspaces button:hover {
   background-color: #1A1A1A;
+  color: #B8B8B8;
   box-shadow: none;
   text-shadow: none;
 }

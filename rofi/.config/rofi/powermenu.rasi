@@ -6,7 +6,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #0D0D0D;
+    bg: #0D0D0DBB;
     fg: #eeeeee;
     accent: #444444;
     border-col: #444444;

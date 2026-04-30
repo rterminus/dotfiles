@@ -8,23 +8,24 @@
     "spacing": 0,
 
     "modules-left": [
-        "hyprland/workspaces",
-        "custom/media",
+        "battery",
+        "clock",
+        "tray",
+        "custom/separator",
+        "network",
+        "pulseaudio",
+        "memory",
+        "cpu",
+        "temperature",
+        "custom/caffeine",
+        "custom/updates",
     ],
     "modules-center": [
     ],
     "modules-right": [
-        "custom/updates",
-        "custom/caffeine",
-        "temperature",
-        "cpu",
-        "memory",
-        "pulseaudio",
-        "network",
+        "custom/media",
         "custom/separator",
-        "tray",
-        "clock",
-        "battery",
+        "hyprland/workspaces",
     ],
 
     "hyprland/workspaces": {
@@ -58,7 +59,7 @@
 
     "clock": {
         "interval": 1,
-        "format": "{:%d/%m %H:%M:%S}",
+        "format": "{:%d/%m  %H:%M:%S}",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
 
@@ -74,14 +75,14 @@
         "interval": 2 
     },
     
-    "memory": { 
+    "memory": {
         "format": "mem:{percentage}%",
         "interval": 2
     },
 
     "custom/caffeine": {
         "format": "caf:{}",
-        "exec": "if pgrep -x hypridle > /dev/null; then echo 'on'; else echo 'off'; fi",
+        "exec": "if pgrep -x hypridle > /dev/null; then echo 'off'; else echo 'on'; fi",
         "interval": 2,
         "on-click": "~/.config/waybar/scripts/caffeine.sh"
     },
@@ -104,6 +105,6 @@
     
     "tray": {
         "icon-size": 14,
-        "spacing": 8
+        "spacing": 4,
     }
 }
