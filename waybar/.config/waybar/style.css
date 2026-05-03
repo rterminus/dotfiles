@@ -7,8 +7,7 @@
 }
 
 window#waybar {
-  background-color: transparent;
-  /* border-bottom: 1px solid #1A1A1A; */
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .modules-center {

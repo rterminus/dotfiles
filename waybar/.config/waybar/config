@@ -8,8 +8,8 @@
     "spacing": 0,
 
     "modules-left": [
-        "battery",
         "clock",
+        "battery",
         "tray",
         "custom/separator",
         "network",
@@ -59,7 +59,7 @@
 
     "clock": {
         "interval": 1,
-        "format": "{:%d/%m  %H:%M:%S}",
+        "format": "{:%H:%M:%S  %d/%m}",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
 
