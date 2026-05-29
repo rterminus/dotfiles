@@ -1,32 +1,41 @@
 [mgr]
-ratio          = [ 2, 4, 3 ]
-sort_by        = "alphabetical"
+ratio          = [ 1, 3, 4 ]
+sort_by        = "natural"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
 show_hidden    = true
 show_symlink   = true
 
 [preview]
-tab_size       = 2
-max_width      = 1000
-max_height     = 1000
-image_delay    = 30
+tab_size        = 2
+max_width       = 1000
+max_height      = 1000
+image_delay     = 30
+wrap            = "yes"
 
 [opener]
+display = [ { run = 'kitten icat "$@"', desc = "Display Image" } ]
 edit = [ { run = 'nvim "$@"', block = true, desc = "Neovim" } ]
+pdf = [ { run = 'zathura "$@"', detach = true, desc = "Zathura" } ]
 
 [open]
 rules = [
-	{ name = "*.md", use = [ "edit" ] },
-	{ name = "*.cpp", use = [ "edit" ] },
-	{ mime = "text/*", use = [ "edit" ] },
+    { url = "*.md", use = [ "edit" ] },
+    { url = "*.{cpp,hpp,c,h}", use = [ "edit" ] },
+    { url = "*.pdf", use = [ "pdf" ] },
+    { mime = "text/*", use = [ "edit" ] },
+    { mime = "image/*", use = [ "display" ] },
+    { mime = "inode/directory", use = [ "edit" ] },
 ]
 
 [plugin]
 prepend_previewers = [
-	{ name = "*/", run = "eza-preview" },
+    { url = "*/", run = "eza-preview" },
 ]
 append_previewers = [
-	{ url = "*", run = "file-extra-metadata" },
+    { url = "*", run = "file-extra-metadata" },
 ]
 append_spotters = [
-	{ url = "*", run = "file-extra-metadata" },
+    { url = "*", run = "file-extra-metadata" },
 ]

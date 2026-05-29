@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(0, 0, 0, 0.01);
 }
 
 .modules-center {
@@ -34,11 +34,12 @@ window#waybar {
 #custom-media,
 #clock,
 #battery {
-  color: #B8B8B8;
+  color: #b8b8b8;
+  font-weight: bolder;
 }
 
 #custom-separator {
-  color: #4C4C4C;
+  color: #4c4c4c;
 }
 
 #tray {
@@ -47,19 +48,19 @@ window#waybar {
 }
 
 #workspaces button {
-  color: #4C4C4C;
+  color: #4c4c4c;
   padding: 0 4px;
   border-radius: 0px;
   border: none;
 }
 
 #workspaces button.active {
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
 
 #workspaces button:hover {
-  background-color: #1A1A1A;
-  color: #B8B8B8;
+  background-color: #1a1a1a;
+  color: #b8b8b8;
   box-shadow: none;
   text-shadow: none;
 }

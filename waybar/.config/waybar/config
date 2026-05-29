@@ -29,6 +29,7 @@
     ],
 
     "hyprland/workspaces": {
+        "all-outputs": true,
         "format": "[{name}]",
         "on-click": "activate"
     },
@@ -70,11 +71,11 @@
         "on-click": "hyprctl dispatch exec \"[float; size 550 450; center] kitty -e nmtui\""
     },
 
-    "cpu": { 
-        "format": "cpu:{usage}%", 
+    "cpu": {
+        "format": "cpu:{usage}%",
         "interval": 2 
     },
-    
+
     "memory": {
         "format": "mem:{percentage}%",
         "interval": 2
@@ -102,7 +103,7 @@
         "critical-threshold": 80,
         "format": "tmp:{temperatureC}C"
     },
-    
+
     "tray": {
         "icon-size": 14,
         "spacing": 4,

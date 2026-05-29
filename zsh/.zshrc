@@ -9,8 +9,6 @@ setopt HIST_REDUCE_BLANKS
 autoload -Uz compinit
 compinit
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 if [ -d /usr/share/zsh/site-functions ]; then
@@ -18,7 +16,6 @@ if [ -d /usr/share/zsh/site-functions ]; then
 fi
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY="jj"
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 function zvm_after_init() {
     eval "$(starship init zsh)"
@@ -111,3 +108,21 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 export PATH=$PATH:/home/terminus/.spicetify
+
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+ZSH_HIGHLIGHT_STYLES[command]='fg=#FCFCFC,bold'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#EEEEEE,italic'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#B8B8B8,underline'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#4C4C4C,italic'
+ZSH_HIGHLIGHT_STYLES[error]='bold,underline'
+ZSH_HIGHLIGHT_STYLES[backquoted-argument]='fg=#AAAAAA,italic'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#B8B8B8'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#B8B8B8'
