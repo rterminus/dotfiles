@@ -37,8 +37,32 @@ return {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		opts = { file_types = { "markdown", "Avante" } },
 		ft = { "markdown", "Avante" },
+		opts = {
+			file_types = { "markdown", "Avante" },
+
+			heading = {
+				sign = false,
+				icons = { "█ ", "▓ ", "▒ ", "░ ", "│ ", "· " },
+			},
+
+			bullet = {
+				icons = { "■", "□", "▪", "▫" },
+			},
+
+			dash = {
+				icon = "─",
+				width = "block",
+			},
+
+			checkbox = {
+				unchecked = { icon = "[ ]" },
+				checked = { icon = "[x]" },
+				custom = {
+					todo = { raw = "[-]", rendered = "[-]", highlight = "RenderMarkdownQuote" },
+				},
+			},
+		},
 	},
 	{
 		"folke/trouble.nvim",
@@ -167,6 +191,34 @@ return {
 					qfSeparator = { fg = fg_dark, bg = bg_none },
 					QuickFixLine = { bg = "#2A2A2A", bold = true },
 					Directory = { fg = fg_dim, bg = bg_none },
+					Pmenu = { bg = "#111111", fg = "#999999" },
+					PmenuSel = { bg = "#4C4C4C", fg = "#FFFFFF", bold = true },
+					BlinkCmpMenu = { link = "Pmenu" },
+					BlinkCmpMenuSelection = { link = "PmenuSel" },
+					BlinkCmpMenuBorder = { fg = "#333333", bg = "#111111" },
+					BlinkCmpLabelMatch = { fg = "#FFFFFF", bold = true },
+					BlinkCmpDoc = { link = "Pmenu" },
+					BlinkCmpDocBorder = { link = "BlinkCmpMenuBorder" },
+					BlinkCmpSignatureHelp = { link = "Pmenu" },
+					BlinkCmpSignatureHelpBorder = { link = "BlinkCmpMenuBorder" },
+					RenderMarkdownH1Bg = { bg = bg_none, fg = fg_main, bold = true },
+					RenderMarkdownH2Bg = { bg = bg_none, fg = fg_main, bold = true },
+					RenderMarkdownH3Bg = { bg = bg_none, fg = fg_main, bold = true },
+					RenderMarkdownH4Bg = { bg = bg_none, fg = fg_dim, bold = true },
+					RenderMarkdownH5Bg = { bg = bg_none, fg = fg_dim, bold = true },
+					RenderMarkdownH6Bg = { bg = bg_none, fg = fg_dim, bold = true },
+					RenderMarkdownH1 = { link = "RenderMarkdownH1Bg" },
+					RenderMarkdownH2 = { link = "RenderMarkdownH2Bg" },
+					RenderMarkdownH3 = { link = "RenderMarkdownH3Bg" },
+					RenderMarkdownH4 = { link = "RenderMarkdownH4Bg" },
+					RenderMarkdownH5 = { link = "RenderMarkdownH5Bg" },
+					RenderMarkdownH6 = { link = "RenderMarkdownH6Bg" },
+					RenderMarkdownCode = { bg = bg_status },
+					RenderMarkdownCodeInline = { bg = bg_hl, fg = fg_main },
+					RenderMarkdownQuote = { fg = fg_dim, italic = true },
+					RenderMarkdownDash = { fg = fg_dark },
+					RenderMarkdownBullet = { fg = fg_dim },
+					RenderMarkdownLink = { fg = fg_dim, underline = true },
 				}
 
 				for grp, st in pairs(manual_overrides) do
@@ -1018,14 +1070,14 @@ return {
 				desc = "Debug: Step Out",
 			},
 			{
-				"<leader>b",
+				"<leader>bb",
 				function()
 					require("dap").toggle_breakpoint()
 				end,
 				desc = "Debug: Toggle Breakpoint",
 			},
 			{
-				"<leader>B",
+				"<leader>bB",
 				function()
 					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
 				end,
@@ -1092,6 +1144,14 @@ return {
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
 			}
+
+			local markdownlint = lint.linters.markdownlint
+			vim.list_extend(markdownlint.args, {
+				"--disable",
+				"MD013",
+				"MD025",
+				"MD034",
+			})
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
