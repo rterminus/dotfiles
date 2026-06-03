@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 ratio          = [ 1, 3, 4 ]
 sort_by        = "natural"
 sort_sensitive = false
@@ -32,6 +32,9 @@ rules = [
 [plugin]
 prepend_previewers = [
     { mime = "inode/directory", run = "eza-preview" },
+    { mime = "{audio,video}/*", run = "mediainfo" },
+    { mime = "application/vnd.*", run = "office" },
+    { mime = "text/*", run = "code" },
     { mime = "application/*zip", run = "ouch" },
     { mime = "application/x-tar", run = "ouch" },
     { mime = "application/bzip2", run = "ouch" },

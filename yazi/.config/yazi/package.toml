@@ -79,11 +79,6 @@ rev = "9fe77d8"
 hash = "7ac02a3fa73cd734ddf4ac85af4c0507"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:bat"
-rev = "598cdb6"
-hash = "99aa06d3014798d86001c324468d497f"
-
-[[plugin.deps]]
 use = "lpnh/fr"
 rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"

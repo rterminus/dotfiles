@@ -2,23 +2,23 @@
 on  = "<C-n>"
 run = "shell -- dragon -x -i -T %h"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "v" ]
 run  = "plugin relative-motions"
 desc = "relative motions"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "C" ]
 run  = "plugin chmod"
 desc = "change permissions"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "S" ]
 run  = "plugin sudo"
 desc = "open in sudo"
 
 # chmod.yazi
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "c", "m" ]
 run  = "plugin chmod"
 desc = "Chmod on selected files"
@@ -108,3 +108,18 @@ desc = "Move in relative steps"
 on = [ "9" ]
 run = "plugin relative-motions 9"
 desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on   = [ ".", "s" ]
+run  = "plugin what-size"
+desc = "Calc size of selection or cwd"
+
+[[mgr.prepend_keymap]]
+on   = "<C-f>"
+run  = "plugin fr"
+desc = "Find and replace using fzf/rg"
+
+[[mgr.prepend_keymap]]
+on   = "<C-y>"
+run  = "plugin system-clipboard"
+desc = "Copy to system clipboard"
