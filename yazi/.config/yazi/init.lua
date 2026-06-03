@@ -1,6 +1,8 @@
 require("relative-motions"):setup({
-	show_numbers = true,
+	show_numbers = "relative",
 	show_unmatched_codes = true,
+	show_motion = true,
+	enter_mode = "first",
 })
 
 require("yatline"):setup({
@@ -37,12 +39,11 @@ require("yatline"):setup({
 	files = { icon = "", fg = "blue" },
 	filtereds = { icon = "", fg = "magenta" },
 
-	total = { icon = "󰮍", fg = "yellow" },
-	success = { icon = "", fg = "green" },
-	failed = { icon = "", fg = "red" },
+	total = { icon = "󰮍 ", fg = "yellow" },
+	success = { icon = " ", fg = "green" },
+	failed = { icon = " ", fg = "red" },
 
-	show_background = true,
-
+	show_background = false,
 	display_header_line = true,
 	display_status_line = true,
 
@@ -50,43 +51,29 @@ require("yatline"):setup({
 
 	header_line = {
 		left = {
-			section_a = {
-				{ type = "line", name = "tabs" },
-			},
+			section_a = { { type = "line", name = "tabs" } },
 			section_b = {},
 			section_c = {},
 		},
 		right = {
-			section_a = {
-				-- { type = "string", name = "date", params = { "%A, %d %B %Y" } },
-			},
-			section_b = {
-				-- { type = "string", name = "date", params = { "%X" } },
-			},
+			section_a = {},
+			section_b = {},
 			section_c = {},
 		},
 	},
 
 	status_line = {
 		left = {
-			section_a = {
-				{ type = "string", name = "tab_mode" },
-			},
-			section_b = {
-				{ type = "string", name = "hovered_size" },
-			},
+			section_a = { { type = "string", name = "tab_mode" } },
+			section_b = { { type = "string", name = "hovered_size" } },
 			section_c = {
 				{ type = "string", name = "hovered_path" },
 				{ type = "coloreds", name = "count" },
 			},
 		},
 		right = {
-			section_a = {
-				{ type = "string", name = "cursor_position" },
-			},
-			section_b = {
-				{ type = "string", name = "cursor_percentage" },
-			},
+			section_a = { { type = "string", name = "cursor_position" } },
+			section_b = { { type = "string", name = "cursor_percentage" } },
 			section_c = {
 				{ type = "string", name = "hovered_file_extension", params = { true } },
 				{ type = "coloreds", name = "permissions" },
@@ -95,10 +82,5 @@ require("yatline"):setup({
 	},
 })
 
-require("relative-motions"):setup({
-	show_numbers = "relative",
-	show_motion = true, -- Optional: shows current motion in the status bar
-	enter_mode = "first", -- Optional: method to enter folders
-})
-
 require("starship"):setup()
+-- require("auto-layout"):setup()
