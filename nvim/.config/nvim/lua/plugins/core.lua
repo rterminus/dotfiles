@@ -1,5 +1,38 @@
 return {
 	{
+		"williamboman/mason.nvim",
+		opts = {
+			ui = {
+				icons = {
+					package_installed = "█",
+					package_pending = "󰔟",
+					package_uninstalled = "󰄱",
+				},
+			},
+		},
+		config = function(_, opts)
+			require("mason").setup(opts)
+
+			local highlights = {
+				"MasonHighlight",
+				"MasonHighlightSecondary",
+				"MasonHighlightBlockSecondary",
+				"MasonHighlightBlockComplimentary",
+				"MasonHeading",
+				"MasonWarning",
+				"MasonMuted",
+			}
+
+			for _, group in ipairs(highlights) do
+				vim.api.nvim_set_hl(0, group, { link = "Normal" })
+			end
+
+			vim.api.nvim_set_hl(0, "MasonHeader", { reverse = true })
+			vim.api.nvim_set_hl(0, "MasonHighlightBlock", { reverse = true })
+			vim.api.nvim_set_hl(0, "MasonHighlightBlockBold", { reverse = true, bold = true })
+		end,
+	},
+	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -1352,6 +1385,7 @@ die
 			{ "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "search notes" },
 			{ "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "open in app" },
 			{ "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "backlinks" },
+			{ "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = "paste image" },
 			{
 				"<leader>oh",
 				"<cmd>e /home/terminus/Documents/terminus-obs/00\\ -\\ index/dashboard.md<cr>",
