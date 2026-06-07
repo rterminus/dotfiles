@@ -192,7 +192,7 @@ return {
 					QuickFixLine = { bg = "#2A2A2A", bold = true },
 					Directory = { fg = fg_dim, bg = bg_none },
 					Pmenu = { bg = "#111111", fg = "#999999" },
-					PmenuSel = { bg = "#4C4C4C", fg = "#FFFFFF", bold = true },
+					PmenuSel = { bg = "#3A3A3A", bold = true },
 					BlinkCmpMenu = { link = "Pmenu" },
 					BlinkCmpMenuSelection = { link = "PmenuSel" },
 					BlinkCmpMenuBorder = { fg = "#333333", bg = "#111111" },
@@ -732,7 +732,7 @@ return {
 					settings = {
 						Lua = {
 							completion = { callSnippet = "Replace" },
-							diagnostics = { globals = { "vim" } },
+							diagnostics = { globals = { "vim", "Snacks" } },
 							workspace = { library = vim.api.nvim_get_runtime_file("", true) },
 						},
 					},
@@ -786,8 +786,15 @@ return {
 				html = { "prettierd", "prettier", stop_after_first = true },
 				css = { "prettierd", "prettier", stop_after_first = true },
 				astro = { "prettierd", "prettier", stop_after_first = true },
+				markdown = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
+	},
+	{
+		"saghen/blink.compat",
+		version = "*",
+		lazy = true,
+		opts = {},
 	},
 	{
 		"saghen/blink.cmp",
@@ -854,9 +861,10 @@ return {
 					},
 				},
 				sources = {
-					default = { "lsp", "path", "snippets", "lazydev", "buffer" },
+					default = { "lsp", "path", "snippets", "lazydev", "buffer", "obsidian" },
 					providers = {
 						lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+						obsidian = { name = "obsidian", module = "blink.compat.source" },
 					},
 				},
 				cmdline = {
@@ -1147,10 +1155,10 @@ return {
 
 			local markdownlint = lint.linters.markdownlint
 			vim.list_extend(markdownlint.args, {
-				"--disable",
-				"MD013",
-				"MD025",
-				"MD034",
+				-- "--disable",
+				-- "MD013",
+				-- "MD025",
+				-- "MD034",
 			})
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -1161,6 +1169,36 @@ return {
 						lint.try_lint()
 					end
 				end,
+			})
+		end,
+	},
+	{
+		"3rd/image.nvim",
+		-- dependencies = { { "vhyrro/luarocks.nvim", priority = 1001, opts = { rocks = { "magick" } } } },
+		config = function()
+			require("image").setup({
+				backend = "kitty",
+				kitty_method = "normal",
+				integrations = {
+					markdown = {
+						enabled = true,
+						clear_in_insert_mode = false,
+						download_remote_images = true,
+						only_render_image_at_cursor = false,
+						filetypes = { "markdown", "vimwiki" },
+					},
+					neorg = { enabled = true },
+					html = { enabled = false },
+					css = { enabled = false },
+				},
+				max_width = nil,
+				max_height = nil,
+				max_width_window_percentage = nil,
+				max_height_window_percentage = 50,
+				window_overlap_clear_enabled = true,
+				window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+				editor_only_render_when_focused = false,
+				tmux_show_only_in_active_window = true,
 			})
 		end,
 	},
@@ -1200,6 +1238,12 @@ die
 							key = "c",
 							desc = "config",
 							action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })",
+						},
+						{
+							icon = "",
+							key = "o",
+							desc = "open obsidian",
+							action = ":e /home/terminus/Documents/terminus-obs/00\\ -\\ index/dashboard.md",
 						},
 						{ icon = "", key = "q", desc = "quit", action = ":qa" },
 					},
@@ -1262,6 +1306,58 @@ die
 				end,
 				desc = "toggle terminal",
 			},
+		},
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*",
+		lazy = true,
+		event = {
+			"BufReadPre ~/Documents/terminus-obs/**.md",
+			"BufNewFile ~/Documents/terminus-obs/**.md",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "brain",
+					path = "~/Documents/terminus-obs",
+				},
+			},
+
+			notes_subdir = "50 - fleeting",
+			new_notes_location = "notes_subdir",
+			wiki_link_func = "use_alias_only",
+
+			templates = {
+				folder = "99 - meta/templates",
+				date_format = "%Y-%m-%d",
+				time_format = "%H:%M",
+			},
+
+			attachments = {
+				img_folder = "99 - meta/attachments",
+			},
+
+			ui = { enable = false },
+
+			picker = { name = "telescope.nvim" },
+
+			mappings = {},
+		},
+		keys = {
+			{ "<leader>on", "<cmd>ObsidianNew<cr>", desc = "new note" },
+			{ "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "search notes" },
+			{ "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "open in app" },
+			{ "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "backlinks" },
+			{
+				"<leader>oh",
+				"<cmd>e /home/terminus/Documents/terminus-obs/00\\ -\\ index/dashboard.md<cr>",
+				desc = "open dashboard",
+			},
+			{ "<CR>", "<cmd>ObsidianFollowLink<cr>", desc = "follow link", ft = "markdown" },
 		},
 	},
 }

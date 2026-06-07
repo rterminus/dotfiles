@@ -1,9 +1,10 @@
 configuration {
-    modi: "drun,calc,emoji,clip:~/.config/rofi/cliphist.sh";
+    modi: "drun,calc,emoji,nerdfonts:~/.config/rofi/nerdfonts.sh,clip:~/.config/rofi/cliphist.sh";
     show-icons: false;
     display-drun: "app > ";
     display-calc: "clc > ";
-    display-emoji: "emo > ";
+    display-emoji: "emt > ";
+    display-nerdfonts: "nrd > ";
     display-clip: "clp > ";
     drun-display-format: "{name}";
     font: "IosevkaTerm Nerd Font 11";

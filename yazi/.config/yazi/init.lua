@@ -83,4 +83,3 @@ require("yatline"):setup({
 })
 
 require("starship"):setup()
--- require("auto-layout"):setup()

@@ -3,11 +3,6 @@ on  = "<C-n>"
 run = "shell -- dragon -x -i -T %h"
 
 [[mgr.prepend_keymap]]
-on   = [ "v" ]
-run  = "plugin relative-motions"
-desc = "relative motions"
-
-[[mgr.prepend_keymap]]
 on   = [ "C" ]
 run  = "plugin chmod"
 desc = "change permissions"
