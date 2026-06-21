@@ -9,16 +9,9 @@ crafted for raw productivity, zero distractions, and seamless terminal workflow.
 
 the core components that make up this environment:
 
-- **os:** arch linux
-- **wm:** hyprland
-- **terminal:** kitty
-- **editor:** neovim
-- **multiplexer:** tmux
-- **launcher:** rofi
-- **file manager:** yazi
-- **shell prompt:** starship
-- **browser:** zen browser
-- **notification daemon**: dunst
+- **eye**: hyprland && neovim
+- **soul**: arch linux && zsh
+- **hand**: kitty && tmux
 
 ## workflow showcase
 
