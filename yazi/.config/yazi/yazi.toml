@@ -15,12 +15,14 @@ image_delay = 30
 wrap = "yes"
 
 [opener]
-display = [{ run = 'kitten icat "$@"', desc = "display image" }]
+display = [{ run = 'imv "$@"', detach = true, desc = "display image" }]
 edit = [{ run = 'nvim "$@"', block = true, desc = "neovim" }]
 pdf = [{ run = 'zathura "$@"', detach = true, desc = "zathura" }]
 extract = [
   { run = 'ouch d -y "$@"', desc = "extract here with ouch", for = "unix" }
 ]
+video = [{ run = 'mpv "$@"', detach = true, desc = "mpv" }]
+office = [{ run = 'libreoffice "$@"', detach = true, desc = "libreoffice" }]
 
 [open]
 rules = [
@@ -28,11 +30,15 @@ rules = [
   { url = "*.{cpp,hpp,c,h}", use = ["edit"] },
   { url = "*.pdf", use = ["pdf"] },
   { mime = "text/*", use = ["edit"] },
-  { mime = "image/*", use = ["display"] },
   { mime = "inode/directory", use = ["edit"] },
+  { mime = "image/*", use = ["display"] },
   { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive}", use = [
     "extract"
   ] },
+  { mime = "application/vnd.oasis.opendocument.*", use = ["office"] },
+  { mime = "application/vnd.openxmlformats-officedocument.*", use = ["office"] },
+  { mime = "application/msword", use = ["office"] },
+  { mime = "video/*", use = ["video"] },
 ]
 
 [plugin]

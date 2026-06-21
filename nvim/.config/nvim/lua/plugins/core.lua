@@ -48,6 +48,35 @@ return {
 		end,
 	},
 	{
+		"folke/zen-mode.nvim",
+		dependencies = {
+			{
+				"folke/twilight.nvim",
+				opts = {
+					dimming = { alpha = 0.25 },
+					context = 10,
+				},
+			},
+		},
+		opts = {
+			window = {
+				backdrop = 1,
+				width = 100,
+				options = {
+					number = false,
+					relativenumber = false,
+					signcolumn = "no",
+				},
+			},
+			plugins = {
+				twilight = { enabled = true },
+			},
+		},
+		keys = {
+			{ "<leader>z", "<cmd>ZenMode<cr>", desc = "toggle zen mode" },
+		},
+	},
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -809,7 +838,7 @@ return {
 				if disable_filetypes[vim.bo[bufnr].filetype] then
 					return nil
 				else
-					return { timeout_ms = 500, lsp_format = "fallback" }
+					return { timeout_ms = 2500, lsp_format = "fallback" }
 				end
 			end,
 			formatters_by_ft = {
@@ -818,7 +847,7 @@ return {
 				typescript = { "prettierd", "prettier", stop_after_first = true },
 				html = { "prettierd", "prettier", stop_after_first = true },
 				css = { "prettierd", "prettier", stop_after_first = true },
-				astro = { "prettierd", "prettier", stop_after_first = true },
+				astro = { "prettier", stop_after_first = true },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
