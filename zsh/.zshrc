@@ -63,6 +63,10 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 alias hypr-start='~/dotfiles/bin/hypr-start.sh'
+alias s="sesh connect ."
+alias ss="sesh connect \$(sesh list | fzf --reverse --height 50%)"
+alias sl="sesh last"
+alias tkill="tmux kill-server"
 alias pkgupd='sudo pacman -Syyu && yay -Syyu'
 if command -v eza > /dev/null; then
     alias ls='eza --icons'

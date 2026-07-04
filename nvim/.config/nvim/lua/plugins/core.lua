@@ -362,9 +362,6 @@ return {
 	{
 		"brenoprata10/nvim-highlight-colors",
 		opts = { render = "background", enable_named_colors = true, enable_tailwind = true },
-		config = function()
-			require("nvim-highlight-colors").setup({})
-		end,
 	},
 	{
 		"Julian/lean.nvim",
@@ -844,7 +841,9 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
 				typescript = { "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 				html = { "prettierd", "prettier", stop_after_first = true },
 				css = { "prettierd", "prettier", stop_after_first = true },
 				astro = { "prettier", stop_after_first = true },
