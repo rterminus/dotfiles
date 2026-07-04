@@ -46,9 +46,7 @@ local render_motion_setup = ya.sync(function(_)
 		ya.render()
 	end
 
-	Status.motion = function()
-		return ui.Span("")
-	end
+	Status.motion = function() return ui.Span("") end
 
 	Status.children_redraw = function(self, side)
 		local lines = {}
@@ -98,12 +96,12 @@ local render_motion = ya.sync(function(_, motion_num, motion_cmd)
 			bg_style = style.main.bg
 		end
 
-		return ui.Line({
+		return ui.Line {
 			ui.Span(separator_open):fg(bg_style),
 			motion_span:style(style.main),
 			ui.Span(separator_close):fg(bg_style),
 			ui.Span(" "),
-		})
+		}
 	end
 end)
 
@@ -157,9 +155,8 @@ local render_numbers = ya.sync(function(_, mode)
 			linemodes[#linemodes + 1] = Linemode:new(f):redraw()
 
 			local entity = Entity:new(f)
-			entities[#entities + 1] =
-				ui.Line({ Entity:number(i, #self._folder.files, f, hovered_index), entity:redraw() })
-					:style(entity:style())
+			entities[#entities + 1] = ui.Line({ Entity:number(i, #self._folder.files, f, hovered_index), entity:redraw() })
+				:style(entity:style())
 		end
 
 		return {
@@ -169,17 +166,13 @@ local render_numbers = ya.sync(function(_, mode)
 	end
 end)
 
-local function render_clear()
-	render_motion()
-end
+local function render_clear() render_motion() end
 
 -----------------------------------------------
 --------- C O M M A N D   P A R S E R ---------
 -----------------------------------------------
 
-local get_keys = ya.sync(function(state)
-	return state._only_motions and MOTION_KEYS or MOTIONS_AND_OP_KEYS
-end)
+local get_keys = ya.sync(function(state) return state._only_motions and MOTION_KEYS or MOTIONS_AND_OP_KEYS end)
 
 local function normal_direction(dir)
 	if dir == "<Down>" then
@@ -200,7 +193,7 @@ local function get_cmd(first_char, keys)
 
 	while true do
 		render_motion(tonumber(lines))
-		local key = ya.which({ cands = keys, silent = true })
+		local key = ya.which { cands = keys, silent = true }
 		if not key then
 			return nil, nil, nil
 		end
@@ -222,7 +215,7 @@ local function get_cmd(first_char, keys)
 		DIRECTION_KEYS[#DIRECTION_KEYS + 1] = {
 			on = last_key,
 		}
-		local direction_key = ya.which({ cands = DIRECTION_KEYS, silent = true })
+		local direction_key = ya.which { cands = DIRECTION_KEYS, silent = true }
 		if not direction_key then
 			return nil, nil, nil
 		end
@@ -244,9 +237,7 @@ local function is_tab_command(command)
 	return false
 end
 
-local get_active_tab = ya.sync(function(_)
-	return cx.tabs.idx
-end)
+local get_active_tab = ya.sync(function(_) return cx.tabs.idx end)
 
 local get_cache_or_first_dir = ya.sync(function(state)
 	if state._enter_mode == ENTER_MODE_CACHE then
@@ -297,8 +288,8 @@ return {
 
 		if cmd == "g" then
 			if direction == "g" then
-				ya.emit("arrow", { "top" })
-				ya.emit("arrow", { lines - 1 })
+				ya.mgr_emit("arrow", { "top" })
+				ya.mgr_emit("arrow", { lines - 1 })
 				render_clear()
 				return
 			elseif direction == "j" then
@@ -306,7 +297,7 @@ return {
 			elseif direction == "k" then
 				cmd = "k"
 			elseif direction == "t" then
-				ya.emit("tab_switch", { lines - 1 })
+				ya.mgr_emit("tab_switch", { lines - 1 })
 				render_clear()
 				return
 			else
@@ -317,66 +308,66 @@ return {
 		end
 
 		if cmd == "j" then
-			ya.emit("arrow", { lines })
+			ya.mgr_emit("arrow", { lines })
 		elseif cmd == "k" then
-			ya.emit("arrow", { -lines })
+			ya.mgr_emit("arrow", { -lines })
 		elseif cmd == "h" then
 			for _ = 1, lines do
-				ya.emit("leave", {})
+				ya.mgr_emit("leave", {})
 			end
 		elseif cmd == "l" then
 			for _ = 1, lines do
-				ya.emit("enter", {})
+				ya.mgr_emit("enter", {})
 				local file_idx = get_cache_or_first_dir()
 				if file_idx then
-					ya.emit("arrow", { "top" })
-					ya.emit("arrow", { file_idx })
+					ya.mgr_emit("arrow", { "top" })
+					ya.mgr_emit("arrow", { file_idx })
 				end
 			end
 		elseif is_tab_command(cmd) then
 			if cmd == "t" then
 				for _ = 1, lines do
-					ya.emit("tab_create", {})
+					ya.mgr_emit("tab_create", {})
 				end
 			elseif cmd == "H" then
-				ya.emit("tab_switch", { -lines, relative = true })
+				ya.mgr_emit("tab_switch", { -lines, relative = true })
 			elseif cmd == "L" then
-				ya.emit("tab_switch", { lines, relative = true })
+				ya.mgr_emit("tab_switch", { lines, relative = true })
 			elseif cmd == "w" then
-				ya.emit("tab_close", { lines - 1 })
+				ya.mgr_emit("tab_close", { lines - 1 })
 			elseif cmd == "W" then
 				local curr_tab = get_active_tab()
 				local del_tab = curr_tab + lines - 1
 				for _ = curr_tab, del_tab do
-					ya.emit("tab_close", { curr_tab - 1 })
+					ya.mgr_emit("tab_close", { curr_tab - 1 })
 				end
-				ya.emit("tab_switch", { curr_tab - 1 })
+				ya.mgr_emit("tab_switch", { curr_tab - 1 })
 			elseif cmd == "<" then
-				ya.emit("tab_swap", { -lines })
+				ya.mgr_emit("tab_swap", { -lines })
 			elseif cmd == ">" then
-				ya.emit("tab_swap", { lines })
+				ya.mgr_emit("tab_swap", { lines })
 			elseif cmd == "~" then
 				local jump = lines - get_active_tab()
-				ya.emit("tab_swap", { jump })
+				ya.mgr_emit("tab_swap", { jump })
 			end
 		else
-			ya.emit("visual_mode", {})
+			ya.mgr_emit("visual_mode", {})
 			-- invert direction when user specifies it
 			if direction == "k" then
-				ya.emit("arrow", { -lines })
+				ya.mgr_emit("arrow", { -lines })
 			elseif direction == "j" then
-				ya.emit("arrow", { lines })
+				ya.mgr_emit("arrow", { lines })
 			else
-				ya.emit("arrow", { lines - 1 })
+				ya.mgr_emit("arrow", { lines - 1 })
 			end
-			ya.emit("escape", {})
+			ya.mgr_emit("escape", {})
 
 			if cmd == "d" then
-				ya.emit("remove", {})
+				ya.mgr_emit("remove", {})
 			elseif cmd == "y" then
-				ya.emit("yank", {})
+				ya.mgr_emit("yank", {})
 			elseif cmd == "x" then
-				ya.emit("yank", { cut = true })
+				ya.mgr_emit("yank", { cut = true })
 			end
 		end
 
