@@ -34,3 +34,26 @@ require("lazy").setup({
 		},
 	},
 })
+
+vim.treesitter.language.register("markdown", "telekasten")
+local zettel_home = vim.fn.expand("~/second-brain")
+
+require("telekasten").setup({
+	home = zettel_home,
+
+	dailies = zettel_home .. "/50-periodic/daily",
+	weeklies = zettel_home .. "/50-periodic/weekly",
+	templates = zettel_home .. "/99-meta/templates",
+
+	image_subdir = zettel_home .. "/99-meta/attachments",
+
+	command_palette_theme = "ivy",
+	show_tags_theme = "ivy",
+
+	extension = ".md",
+	new_note_location = "smart",
+
+	template_new_note = zettel_home .. "/99-meta/templates/new_note.md",
+	template_new_daily = zettel_home .. "/99-meta/templates/daily.md",
+	template_new_weekly = zettel_home .. "/99-meta/templates/weekly.md",
+})

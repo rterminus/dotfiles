@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # Options
-lock="󰌾 Lock"
-logout="󰗽 Logout"
-reboot="󰜉 Reboot"
-shutdown="󰐥 Shutdown"
+lock="  lock"
+logout="  logout"
+reboot="  reboot"
+shutdown="  shutdown"
 
 # Variable passed to rofi
 options="$lock\n$logout\n$reboot\n$shutdown"

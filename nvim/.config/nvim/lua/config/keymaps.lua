@@ -33,7 +33,23 @@ map("n", "<leader>A", "<cmd>A<CR>", { desc = "alternate between cpp/hpp" })
 -- buffer management
 map("n", "<leader>bd", function()
 	require("snacks").bufdelete()
-end, { desc = "[B]uffer [D]elete" })
+end, { desc = "[b]uffer [d]elete" })
 map("n", "<leader>bo", function()
 	require("snacks").bufdelete.other()
-end, { desc = "[B]uffer Delete [O]thers" })
+end, { desc = "[b]uffer Delete [o]thers" })
+
+-- vim.dadbod
+vim.keymap.set("n", "<Leader>gdd", "<cmd>DBUIToggle<cr>", { desc = "toggle database ui" })
+vim.keymap.set("n", "<Leader>gdf", "<cmd>DBUIFindBuffer<cr>", { desc = "find db buffer" })
+
+-- telekasten
+vim.keymap.set("n", "<leader>zz", "<cmd>Telekasten panel<CR>")
+vim.keymap.set("n", "<leader>zf", "<cmd>Telekasten find_notes<CR>")
+vim.keymap.set("n", "<leader>zg", "<cmd>Telekasten search_notes<CR>")
+vim.keymap.set("n", "<leader>zd", "<cmd>Telekasten goto_today<CR>")
+vim.keymap.set("n", "<leader>zo", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>zn", "<cmd>Telekasten new_note<CR>")
+vim.keymap.set("n", "<leader>zc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>zb", "<cmd>Telekasten show_backlinks<CR>")
+vim.keymap.set("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>")
+vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")

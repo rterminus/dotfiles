@@ -73,7 +73,7 @@ return {
 			},
 		},
 		keys = {
-			{ "<leader>z", "<cmd>ZenMode<cr>", desc = "toggle zen mode" },
+			{ "<leader>Z", "<cmd>ZenMode<cr>", desc = "toggle zen mode" },
 		},
 	},
 	{
@@ -101,7 +101,7 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "Avante" },
 		opts = {
-			file_types = { "markdown", "Avante" },
+			file_types = { "markdown", "Avante", "telekasten" },
 
 			heading = {
 				sign = false,
@@ -849,6 +849,7 @@ return {
 				astro = { "prettier", stop_after_first = true },
 				json = { "prettierd", "prettier", stop_after_first = true },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
+				telekasten = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
 	},
@@ -923,10 +924,10 @@ return {
 					},
 				},
 				sources = {
-					default = { "lsp", "path", "snippets", "lazydev", "buffer", "obsidian" },
+					default = { "lsp", "path", "snippets", "lazydev", "buffer", "dadbod" },
 					providers = {
 						lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
-						obsidian = { name = "obsidian", module = "blink.compat.source" },
+						dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 					},
 				},
 				cmdline = {
@@ -1304,8 +1305,8 @@ die
 						{
 							icon = "",
 							key = "o",
-							desc = "open obsidian",
-							action = ":e /home/terminus/Documents/terminus-obs/00\\ -\\ index/dashboard.md",
+							desc = "open 2brain",
+							action = ":e /home/terminus/second-brain/index.md",
 						},
 						{ icon = "", key = "q", desc = "quit", action = ":qa" },
 					},
@@ -1371,56 +1372,26 @@ die
 		},
 	},
 	{
-		"epwalsh/obsidian.nvim",
-		version = "*",
-		lazy = true,
-		event = {
-			"BufReadPre ~/Documents/terminus-obs/**.md",
-			"BufNewFile ~/Documents/terminus-obs/**.md",
-		},
+		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
 		},
-		opts = {
-			workspaces = {
-				{
-					name = "brain",
-					path = "~/Documents/terminus-obs",
-				},
-			},
-
-			notes_subdir = "50 - fleeting",
-			new_notes_location = "notes_subdir",
-			wiki_link_func = "use_alias_only",
-
-			templates = {
-				folder = "99 - meta/templates",
-				date_format = "%Y-%m-%d",
-				time_format = "%H:%M",
-			},
-
-			attachments = {
-				img_folder = "99 - meta/attachments",
-			},
-
-			ui = { enable = false },
-
-			picker = { name = "telescope.nvim" },
-
-			mappings = {},
+		cmd = {
+			"DBUI",
+			"DBUIToggle",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
 		},
-		keys = {
-			{ "<leader>on", "<cmd>ObsidianNew<cr>", desc = "new note" },
-			{ "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "search notes" },
-			{ "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "open in app" },
-			{ "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "backlinks" },
-			{ "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = "paste image" },
-			{
-				"<leader>oh",
-				"<cmd>e /home/terminus/Documents/terminus-obs/00\\ -\\ index/dashboard.md<cr>",
-				desc = "open dashboard",
-			},
-			{ "<CR>", "<cmd>ObsidianFollowLink<cr>", desc = "follow link", ft = "markdown" },
-		},
+		init = function()
+			vim.g.db_ui_use_nerd_fonts = 1
+
+			vim.g.db_ui_show_help = 0
+		end,
 	},
+	{
+		"renerocksai/telekasten.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+	},
+	{ "mattn/calendar-vim" },
 }

@@ -37,8 +37,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
 export BAT_STYLE="numbers,changes"
 
-eval "$(tmuxifier init -)"
-
 # exports
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
@@ -62,9 +60,10 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
+alias px="pnpm dlx"
 alias hypr-start='~/dotfiles/bin/hypr-start.sh'
 alias s="sesh connect ."
-alias ss="sesh connect \$(sesh list | fzf --reverse --height 50%)"
+alias ss="sesh connect \$(sesh list -tzT | fzf --reverse --height 50%)"
 alias sl="sesh last"
 alias tkill="tmux kill-server"
 alias pkgupd='sudo pacman -Syyu && yay -Syyu'
@@ -107,9 +106,9 @@ function ex() {
     fi
 }
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+eval "$(fnm env --use-on-cd --shell zsh --corepack-enabled)"
+
+eval "$(direnv hook zsh)"
 
 export PATH=$PATH:/home/terminus/.spicetify
 

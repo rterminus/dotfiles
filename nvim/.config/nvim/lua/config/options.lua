@@ -52,6 +52,12 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.viewoptions = { "folds", "cursor" }
 
+vim.filetype.add({
+	extension = {
+		conf = "ini",
+	},
+})
+
 function _G.minimal_foldtext()
 	local start_line = vim.fn.getline(vim.v.foldstart)
 	local lines_count = vim.v.foldend - vim.v.foldstart + 1
