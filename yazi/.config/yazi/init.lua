@@ -45,35 +45,27 @@ require("yatline"):setup({
 
 	show_background = false,
 	display_header_line = true,
-	display_status_line = true,
+	display_status_line = false,
 
-	component_positions = { "header", "tab", "status" },
+	component_positions = { "header", "tab" },
 
 	header_line = {
 		left = {
-			section_a = { { type = "line", name = "tabs" } },
-			section_b = {},
-			section_c = {},
-		},
-		right = {
-			section_a = {},
-			section_b = {},
-			section_c = {},
-		},
-	},
-
-	status_line = {
-		left = {
 			section_a = { { type = "string", name = "tab_mode" } },
-			section_b = { { type = "string", name = "hovered_size" } },
+			section_b = { { type = "line", name = "tabs" } },
 			section_c = {
 				{ type = "string", name = "hovered_path" },
 				{ type = "coloreds", name = "count" },
 			},
 		},
 		right = {
-			section_a = { { type = "string", name = "cursor_position" } },
-			section_b = { { type = "string", name = "cursor_percentage" } },
+			section_a = {
+				{ type = "string", name = "hovered_size" },
+				{ type = "string", name = "cursor_position" },
+			},
+			section_b = {
+				{ type = "string", name = "cursor_percentage" },
+			},
 			section_c = {
 				{ type = "string", name = "hovered_file_extension", params = { true } },
 				{ type = "coloreds", name = "permissions" },
@@ -82,4 +74,4 @@ require("yatline"):setup({
 	},
 })
 
-require("starship"):setup()
+-- require("starship"):setup()

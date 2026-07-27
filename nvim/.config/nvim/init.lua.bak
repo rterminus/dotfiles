@@ -338,15 +338,15 @@ require('lazy').setup({
         local Rule = require 'nvim-autopairs.rule'
         require('nvim-autopairs').add_rules {
           Rule(' ', ' ')
-            :with_pair(function(opts)
-              local pair = opts.line:sub(opts.col - 1, opts.col)
-              return vim.tbl_contains({ '()', '[]', '{}' }, pair)
-            end)
-            :with_move(function(opts) return opts.prev_char == ' ' end)
-            :with_del(function(opts)
-              local pair = opts.line:sub(opts.col - 2, opts.col + 1)
-              return vim.tbl_contains({ '(  )', '[  ]', '{  }' }, pair)
-            end),
+          :with_pair(function(opts)
+            local pair = opts.line:sub(opts.col - 1, opts.col)
+            return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+          end)
+          :with_move(function(opts) return opts.prev_char == ' ' end)
+          :with_del(function(opts)
+            local pair = opts.line:sub(opts.col - 2, opts.col + 1)
+            return vim.tbl_contains({ '(  )', '[  ]', '{  }' }, pair)
+          end),
         }
       end,
     },

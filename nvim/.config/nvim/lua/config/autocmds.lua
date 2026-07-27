@@ -80,3 +80,12 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 		vim.api.nvim_win_set_cursor(0, { 2, 0 })
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "telekasten",
+	callback = function(event)
+		vim.schedule(function()
+			vim.bo[event.buf].filetype = "markdown"
+		end)
+	end,
+})

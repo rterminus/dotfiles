@@ -39,42 +39,63 @@ return {
 		config = function()
 			local harpoon = require("harpoon")
 			harpoon:setup()
-			vim.keymap.set("n", "<leader>ha", function()
+
+			vim.keymap.set("n", "<leader>h", function()
 				harpoon:list():add()
 			end, { desc = "harpoon: add file" })
 			vim.keymap.set("n", "<C-e>", function()
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end, { desc = "harpoon: toggle menu" })
+
+			vim.keymap.set("n", "<leader>1", function()
+				harpoon:list():select(1)
+			end, { desc = "harpoon: file 1" })
+			vim.keymap.set("n", "<leader>2", function()
+				harpoon:list():select(2)
+			end, { desc = "harpoon: file 2" })
+			vim.keymap.set("n", "<leader>3", function()
+				harpoon:list():select(3)
+			end, { desc = "harpoon: file 3" })
+			vim.keymap.set("n", "<leader>4", function()
+				harpoon:list():select(4)
+			end, { desc = "harpoon: file 4" })
+
+			vim.keymap.set("n", "]h", function()
+				harpoon:list():next()
+			end, { desc = "harpoon: next" })
+			vim.keymap.set("n", "[h", function()
+				harpoon:list():prev()
+			end, { desc = "harpoon: prev" })
 		end,
 	},
 	{
-		"folke/zen-mode.nvim",
+		"ThePrimeagen/refactoring.nvim",
 		dependencies = {
-			{
-				"folke/twilight.nvim",
-				opts = {
-					dimming = { alpha = 0.25 },
-					context = 10,
-				},
-			},
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"lewis6991/async.nvim",
 		},
-		opts = {
-			window = {
-				backdrop = 1,
-				width = 100,
-				options = {
-					number = false,
-					relativenumber = false,
-					signcolumn = "no",
-				},
-			},
-			plugins = {
-				twilight = { enabled = true },
-			},
-		},
-		keys = {
-			{ "<leader>Z", "<cmd>ZenMode<cr>", desc = "toggle zen mode" },
-		},
+		config = function()
+			require("refactoring").setup({})
+
+			vim.keymap.set("x", "<leader>re", ":Refactor extract ", { desc = "[r]efactor [e]xtract" })
+			vim.keymap.set("x", "<leader>rf", ":Refactor extract_to_file ", { desc = "[r]efactor extract to [f]ile" })
+			vim.keymap.set("x", "<leader>rv", ":Refactor extract_var ", { desc = "[r]efactor extract [v]ar" })
+			vim.keymap.set("x", "<leader>ri", ":Refactor inline_var", { desc = "[r]efactor [i]nline var" })
+
+			vim.keymap.set("n", "<leader>ri", ":Refactor inline_var", { desc = "[r]efactor [i]nline var" })
+			vim.keymap.set("n", "<leader>rb", ":Refactor extract_block", { desc = "[r]efactor extract [b]lock" })
+			vim.keymap.set(
+				"n",
+				"<leader>rbf",
+				":Refactor extract_block_to_file",
+				{ desc = "[r]efactor extract [b]lock to [f]ile" }
+			)
+
+			vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+				require("telescope").extensions.refactoring.refactors()
+			end, { desc = "[r]efactor [r]efactors menu" })
+		end,
 	},
 	{
 		"folke/noice.nvim",
@@ -130,7 +151,6 @@ return {
 		"folke/trouble.nvim",
 		cmd = "Trouble",
 		opts = {},
-		keys = { { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "diagnostics toggle" } },
 	},
 	{
 		"mikavilpas/yazi.nvim",
@@ -145,7 +165,10 @@ return {
 			end,
 		},
 	},
-	{ "vim-test/vim-test", keys = { { "<leader>tn", "<cmd>TestNearest<cr>" }, { "<leader>tf", "<cmd>TestFile<cr>" } } },
+	{
+		"vim-test/vim-test",
+		keys = { { "<leader>tn", "<cmd>TestNearest<cr>" }, { "<leader>tf", "<cmd>TestFile<cr>" } },
+	},
 	{
 		"preservim/vimux",
 		cmd = { "VimuxRunCommand", "VimuxPromptCommand" },
@@ -332,33 +355,103 @@ return {
 	},
 	{
 		"tpope/vim-projectionist",
-		config = function()
+		event = { "BufReadPre", "BufNewFile" },
+		init = function()
 			vim.g.projectionist_heuristics = {
 				["*"] = {
-					["src/*.cpp"] = { alternate = "include/{}.hpp", type = "source" },
-					["include/*.hpp"] = { alternate = "src/{}.cpp", type = "header" },
-					["*.cpp"] = { alternate = "{}.hpp", type = "source" },
-					["*.hpp"] = { alternate = "{}.cpp", type = "header" },
+					["src/*.cpp"] = {
+						alternate = "include/{}.hpp",
+						type = "source",
+						template = {
+							'#include "{basename}.hpp"',
+							"",
+							"// {basename}",
+							"",
+						},
+					},
+					["include/*.hpp"] = {
+						alternate = "src/{}.cpp",
+						type = "header",
+						template = {
+							"#ifndef {uppercase}_HPP",
+							"#define {uppercase}_HPP",
+							"",
+							"class {basename} {",
+							"private:",
+							"    ",
+							"public:",
+							"    {basename}();",
+							"    ~{basename}();",
+							"};",
+							"",
+							"#endif // {uppercase}_HPP",
+						},
+					},
+					["tests/test_*.cpp"] = {
+						type = "test",
+						alternate = "src/{}.cpp",
+					},
+
+					["src/main/java/*.java"] = {
+						alternate = "src/test/java/{}Test.java",
+						type = "source",
+						template = {
+							"package {dirname|dot};",
+							"",
+							"public class {basename} {",
+							"    public {basename}() {",
+							"        ",
+							"    }",
+							"}",
+						},
+					},
+					["src/test/java/*Test.java"] = {
+						alternate = "src/main/java/{}.java",
+						type = "test",
+						template = {
+							"package {dirname|dot};",
+							"",
+							"import org.junit.jupiter.api.Test;",
+							"import static org.junit.jupiter.api.Assertions.*;",
+							"",
+							"public class {basename}Test {",
+							"",
+							"    @Test",
+							"    public void test() {",
+							"        ",
+							"    }",
+							"}",
+						},
+					},
+
+					["src/*.java"] = {
+						alternate = "tests/{}Test.java",
+						type = "source",
+						template = {
+							"public class {basename} {",
+							"    public {basename}() {",
+							"        ",
+							"    }",
+							"}",
+						},
+					},
 				},
 			}
 		end,
-	},
-	{
-		"ukonhattu/tmc.vim",
-		cmd = { "TmcLogin", "TmcPickCourse", "TmcRunTests", "TmcSubmit" },
-		init = function()
-			vim.g.tmc_cli_path = "/usr/local/bin/tmc-langs-cli"
+		config = function()
+			vim.keymap.set("n", "<leader>A", "<cmd>A<CR>", { desc = "alternate between header and source" })
+			vim.keymap.set("n", "<leader>av", "<cmd>AV<CR>", { desc = "alternate file in vertical split" })
+			vim.keymap.set("n", "<leader>as", "<cmd>AS<CR>", { desc = "alternate file in horizontal split" })
 		end,
-		keys = {
-			{ "<leader>tt", ":TmcRunTests<CR>", desc = "tmc: run tests" },
-			{ "<leader>ts", ":TmcSubmit<CR>", desc = "tmc: submit solution" },
-		},
 	},
 	{ "mfussenegger/nvim-jdtls", ft = "java" },
 	"ThePrimeagen/vim-be-good",
 	{ "brianhuster/live-preview.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
 	{ "stevearc/dressing.nvim", opts = {} },
-	{ "mbbill/undotree", keys = { { "<leader>U", "<cmd>UndotreeToggle<CR>", desc = "undotree reveal" } } },
+	{
+		"mbbill/undotree",
+		keys = { { "<leader>U", "<cmd>UndotreeToggle<CR>", desc = "undotree reveal" } },
+	},
 	{
 		"brenoprata10/nvim-highlight-colors",
 		opts = { render = "background", enable_named_colors = true, enable_tailwind = true },
@@ -637,6 +730,7 @@ return {
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+			vim.keymap.set("n", "<leader>sm", builtin.marks, { desc = "[S]earch [M]arks" })
 			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
@@ -769,8 +863,20 @@ return {
 				clangd = {},
 				ts_ls = {},
 				html = {},
-				cssls = {},
+				cssls = {
+					settings = {
+						css = {
+							lint = { unknownAtRules = "ignore" },
+						},
+					},
+				},
 				tailwindcss = {},
+				marksman = {
+					filetypes = {
+						"markdown",
+						"telekasten",
+					},
+				},
 				emmet_ls = {
 					filetypes = {
 						"css",
@@ -799,7 +905,10 @@ return {
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, { "stylua", "prettierd", "markdownlint", "codelldb" })
+			vim.list_extend(
+				ensure_installed,
+				{ "stylua", "prettierd", "markdownlint", "codelldb", "jdtls", "java-debug-adapter", "java-test" }
+			)
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
@@ -810,6 +919,8 @@ return {
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						require("lspconfig")[server_name].setup(server)
 					end,
+
+					["jdtls"] = function() end,
 				},
 			})
 		end,
@@ -850,6 +961,7 @@ return {
 				json = { "prettierd", "prettier", stop_after_first = true },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				telekasten = { "prettierd", "prettier", stop_after_first = true },
+				java = { "google-java-format" },
 			},
 		},
 	},
@@ -954,7 +1066,17 @@ return {
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		config = function()
+			require("todo-comments").setup({
+				signs = false,
+				keywords = {
+					task = { icon = "[]", color = "info" },
+				},
+				search = {
+					pattern = [=[\b(KEYWORDS)\b|\-\s\[\s\]]=],
+				},
+			})
+		end,
 	},
 	{
 		"echasnovski/mini.nvim",
@@ -976,7 +1098,47 @@ return {
 			})
 			require("mini.files").setup({
 				windows = { width_focus = 30, width_nofocus = 15 },
-				options = { use_as_default_explorer = true },
+				options = { use_as_default_explorer = true, use_as_default = true },
+			})
+			local expand_single_dir
+			expand_single_dir = vim.schedule_wrap(function()
+				local is_one_dir = vim.api.nvim_buf_line_count(0) == 1
+					and (MiniFiles.get_fs_entry() or {}).fs_type == "directory"
+				if not is_one_dir then
+					return
+				end
+
+				MiniFiles.go_in()
+				expand_single_dir()
+			end)
+			local go_in_and_expand = function()
+				local fs_entry = MiniFiles.get_fs_entry()
+				if not fs_entry then
+					return
+				end
+
+				MiniFiles.go_in()
+
+				if fs_entry.fs_type == "directory" then
+					expand_single_dir()
+				end
+			end
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "MiniFilesBufferCreate",
+				callback = function(args)
+					vim.keymap.set(
+						"n",
+						"l",
+						go_in_and_expand,
+						{ buffer = args.data.buf_id, desc = "enter and skip unique directories" }
+					)
+					vim.keymap.set(
+						"n",
+						"<Right>",
+						go_in_and_expand,
+						{ buffer = args.data.buf_id, desc = "enter and skip unique directories" }
+					)
+				end,
 			})
 			vim.keymap.set("n", "<leader>e", function()
 				require("mini.files").open(vim.api.nvim_buf_get_name(0))
@@ -1013,7 +1175,16 @@ return {
 							icon = "",
 							signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 " },
 						})
-						local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+						local filename = vim.fn.expand("%:t")
+						if filename == "" then
+							filename = "[no name]"
+						end
+						if vim.bo.modified then
+							filename = filename .. " [+]"
+						end
+						if vim.bo.readonly or not vim.bo.modifiable then
+							filename = filename .. " [-]"
+						end
 						local fileinfo = vim.bo.filetype
 						if vim.g.have_nerd_font and fileinfo ~= "" then
 							local devicons = require("nvim-web-devicons")
@@ -1076,7 +1247,6 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		lazy = false,
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		config = function()
 			require("nvim-treesitter.install").prefer_git = true
 			require("nvim-treesitter").setup({
@@ -1169,7 +1339,7 @@ return {
 			require("mason-nvim-dap").setup({
 				automatic_installation = true,
 				handlers = {},
-				ensure_installed = { "codelldb" },
+				ensure_installed = { "codelldb", "java-debug-adapter" },
 			})
 
 			---@diagnostic disable-next-line: missing-fields
@@ -1294,21 +1464,21 @@ die, cut, die, cut
 die
         ]],
 					keys = {
-						{ icon = "", key = "f", desc = "find file", action = ":lua Snacks.picker.files()" },
-						{ icon = "", key = "t", desc = "find text", action = ":lua Snacks.picker.grep()" },
+						{ icon = "", key = "s", desc = "> search ", action = ":lua Snacks.picker.files()" },
+						{ icon = "", key = "f", desc = "> find   ", action = ":lua Snacks.picker.grep()" },
 						{
 							icon = "",
 							key = "c",
-							desc = "config",
+							desc = "> config ",
 							action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })",
 						},
 						{
 							icon = "",
-							key = "o",
-							desc = "open 2brain",
+							key = "z",
+							desc = "> zettel ",
 							action = ":e /home/terminus/second-brain/index.md",
 						},
-						{ icon = "", key = "q", desc = "quit", action = ":qa" },
+						{ icon = "", key = "q", desc = "> quit   ", action = ":qa" },
 					},
 				},
 				sections = {
@@ -1363,6 +1533,13 @@ die
 				desc = "rename file",
 			},
 			{
+				"<leader>Z",
+				function()
+					Snacks.zen()
+				end,
+				desc = "toggle zen mode",
+			},
+			{
 				"<c-\\>",
 				function()
 					Snacks.terminal()
@@ -1392,6 +1569,74 @@ die
 	{
 		"renerocksai/telekasten.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
+		config = function()
+			local zettel_home = vim.fn.expand("~/second-brain")
+
+			require("telekasten").setup({
+				home = zettel_home,
+
+				dailies = zettel_home .. "/50-periodic/daily",
+				weeklies = zettel_home .. "/50-periodic/weekly",
+				templates = zettel_home .. "/99-meta/templates",
+
+				image_subdir = zettel_home .. "/99-meta/attachments",
+
+				command_palette_theme = "ivy",
+				show_tags_theme = "ivy",
+
+				extension = ".md",
+				new_note_location = "smart",
+
+				template_new_note = zettel_home .. "/99-meta/templates/zettel.md",
+				template_new_daily = zettel_home .. "/99-meta/templates/daily.md",
+				template_new_weekly = zettel_home .. "/99-meta/templates/weekly.md",
+			})
+		end,
 	},
 	{ "mattn/calendar-vim" },
+	{
+		"vimpostor/vim-tpipeline",
+		lazy = false,
+		dependencies = { "echasnovski/mini.nvim" },
+		config = function()
+			if vim.env.TMUX ~= nil then
+				vim.g.tpipeline_autoembed = 1
+				vim.opt.laststatus = 0
+			else
+				vim.opt.laststatus = 3
+				vim.opt.showtabline = 1
+				vim.opt.tabline = ""
+			end
+		end,
+	},
+	{
+		"abecodes/tabout.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"saghen/blink.cmp",
+		},
+		config = function()
+			require("tabout").setup({
+				tabkey = "<Tab>",
+				backwards_tabkey = "<S-Tab>",
+				act_as_tab = true,
+				act_as_shift_tab = false,
+				default_tab = "<C-t>",
+				default_shift_tab = "<C-d>",
+				enable_backwards = true,
+				completion = false,
+				tabouts = {
+					{ open = "'", close = "'" },
+					{ open = '"', close = '"' },
+					{ open = "`", close = "`" },
+					{ open = "(", close = ")" },
+					{ open = "[", close = "]" },
+					{ open = "{", close = "}" },
+				},
+				ignore_beginning = true,
+				exclude = {},
+			})
+		end,
+	},
 }

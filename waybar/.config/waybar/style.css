@@ -1,5 +1,16 @@
 * {
   font-family: "IosevkaTerm Nerd Font", monospace;
+  /* font-feature-settings: */
+  /*   "cv10" 6, */
+  /*   "cv01" 3, */
+  /*   "cv02" 1, */
+  /*   "cv03" 1, */
+  /*   "cv04" 1, */
+  /*   "cv05" 3, */
+  /*   "cv06" 1, */
+  /*   "cv07" 3, */
+  /*   "cv08" 2, */
+  /*   "cv09" 1; */
   font-size: 12px;
   font-weight: bold;
   margin: 0;

@@ -41,7 +41,7 @@ export BAT_STYLE="numbers,changes"
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export PAGER="bat"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="nvim +Man!"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # aliases
@@ -60,10 +60,9 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
-alias px="pnpm dlx"
 alias hypr-start='~/dotfiles/bin/hypr-start.sh'
 alias s="sesh connect ."
-alias ss="sesh connect \$(sesh list -tzT | fzf --reverse --height 50%)"
+alias sc="sesh connect \$(sesh list -tzT | fzf --reverse --height 50%)"
 alias sl="sesh last"
 alias tkill="tmux kill-server"
 alias pkgupd='sudo pacman -Syyu && yay -Syyu'
@@ -106,6 +105,10 @@ function ex() {
     fi
 }
 
+zettel() {
+    echo "- [ ] $1" >> ~/second-brain/00-inbox/quick-capture.md
+}
+
 eval "$(fnm env --use-on-cd --shell zsh --corepack-enabled)"
 
 eval "$(direnv hook zsh)"
@@ -128,3 +131,11 @@ ZSH_HIGHLIGHT_STYLES[error]='bold,underline'
 ZSH_HIGHLIGHT_STYLES[backquoted-argument]='fg=#AAAAAA,italic'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#B8B8B8'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#B8B8B8'
+
+# pnpm
+export PNPM_HOME="/home/terminus/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
