@@ -1,0 +1,32 @@
+hl.config({
+	input = {
+		kb_layout = "us, br",
+		kb_variant = ", abnt2",
+		kb_model = "",
+		kb_options = "compose:ralt,lv3:ralt_alt,caps:swapescape",
+		kb_rules = "",
+		follow_mouse = 1,
+
+		touchpad = {
+			natural_scroll = false,
+			disable_while_typing = false,
+			tap_to_click = true,
+			clickfinger_behavior = false,
+		},
+
+		sensitivity = 0.5,
+		force_no_accel = 0,
+		numlock_by_default = true,
+	},
+
+	device = {
+		{
+			name = "pnp0c50:0b-093a:0255-touchpad",
+			sensitivity = 0.75,
+		},
+		{
+			name = "pnp0c50:0b-093a:0255-mouse",
+			sensitivity = 0.5,
+		},
+	},
+})
