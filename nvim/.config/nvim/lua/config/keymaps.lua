@@ -26,7 +26,8 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "move focus to the upper window" })
 
 -- buffer movement
--- map("n", "<leader>A", "<cmd>A<CR>", { desc = "alternate between cpp/hpp" })
+map("n", "<Tab>", "<cmd>bnext<CR>")
+map("n", "<S-Tab>", "<cmd>bprev<CR>")
 
 -- buffer management
 map("n", "<leader>bd", function()
