@@ -439,7 +439,7 @@ return {
 			}
 		end,
 		config = function()
-			vim.keymap.set("n", "<leader>A", "<cmd>A<CR>", { desc = "alternate between header and source" })
+			vim.keymap.set("n", "<leader>a", "<cmd>A<CR>", { desc = "alternate between header and source" })
 			vim.keymap.set("n", "<leader>av", "<cmd>AV<CR>", { desc = "alternate file in vertical split" })
 			vim.keymap.set("n", "<leader>as", "<cmd>AS<CR>", { desc = "alternate file in horizontal split" })
 		end,
@@ -510,7 +510,7 @@ return {
 					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Next Function" })
 				end,
 			})
-			vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { desc = "toggle aerial" })
+			vim.keymap.set("n", "<leader>A", "<cmd>AerialToggle!<CR>", { desc = "toggle aerial" })
 			vim.api.nvim_create_autocmd("ColorScheme", {
 				pattern = "*",
 				callback = function()
