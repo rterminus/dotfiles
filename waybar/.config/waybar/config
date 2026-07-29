@@ -49,7 +49,7 @@
         "interval": 3600,
         "exec": "checkupdates | wc -l",
         "exec-if": "exit 0",
-        "on-click": "kitty -e sudo pacman -Syu",
+        "on-click": "kitty -e pkgupd",
         "signal": 8
     },
 
