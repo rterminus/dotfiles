@@ -40,31 +40,39 @@ return {
 			local harpoon = require("harpoon")
 			harpoon:setup()
 
+			local function get_context()
+				local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
+				if branch == "" then
+					return "global"
+				end
+				return branch
+			end
+
 			vim.keymap.set("n", "<leader>h", function()
-				harpoon:list():add()
+				harpoon:list(get_context()):add()
 			end, { desc = "harpoon: add file" })
 			vim.keymap.set("n", "<C-e>", function()
-				harpoon.ui:toggle_quick_menu(harpoon:list())
+				harpoon.ui:toggle_quick_menu(harpoon:list(get_context()))
 			end, { desc = "harpoon: toggle menu" })
 
 			vim.keymap.set("n", "<leader>1", function()
-				harpoon:list():select(1)
+				harpoon:list(get_context()):select(1)
 			end, { desc = "harpoon: file 1" })
 			vim.keymap.set("n", "<leader>2", function()
-				harpoon:list():select(2)
+				harpoon:list(get_context()):select(2)
 			end, { desc = "harpoon: file 2" })
 			vim.keymap.set("n", "<leader>3", function()
-				harpoon:list():select(3)
+				harpoon:list(get_context()):select(3)
 			end, { desc = "harpoon: file 3" })
 			vim.keymap.set("n", "<leader>4", function()
-				harpoon:list():select(4)
+				harpoon:list(get_context()):select(4)
 			end, { desc = "harpoon: file 4" })
 
 			vim.keymap.set("n", "]h", function()
-				harpoon:list():next()
+				harpoon:list(get_context()):next()
 			end, { desc = "harpoon: next" })
 			vim.keymap.set("n", "[h", function()
-				harpoon:list():prev()
+				harpoon:list(get_context()):prev()
 			end, { desc = "harpoon: prev" })
 		end,
 	},
@@ -1636,6 +1644,36 @@ die
 				},
 				ignore_beginning = true,
 				exclude = {},
+			})
+		end,
+	},
+	{
+		"b0o/incline.nvim",
+		cond = function()
+			return vim.env.TMUX ~= nil
+		end,
+		event = "VeryLazy",
+		config = function()
+			local hostname = vim.fn.hostname()
+			local tmux_session = vim.fn.system("tmux display-message -p '#S'"):gsub("\n", "")
+
+			require("incline").setup({
+				window = {
+					padding = 0,
+					margin = { horizontal = 1, vertical = 1 },
+					placement = { horizontal = "right", vertical = "top" },
+				},
+				hide = {
+					cursorline = true,
+					focused_win = false,
+					only_win = false,
+				},
+				render = function()
+					return {
+						{ " " .. hostname .. " ", group = "String" },
+						{ " [" .. tmux_session .. "]", group = "Keyword" },
+					}
+				end,
 			})
 		end,
 	},
