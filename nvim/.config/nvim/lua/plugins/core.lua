@@ -486,16 +486,16 @@ return {
 			require("aerial").setup({
 				backends = { "lsp", "treesitter", "markdown", "man" },
 				icons = {
-					Class = " ",
-					Constructor = " ",
-					Enum = " ",
-					Field = " ",
-					Function = "󰊕 ",
-					Interface = " ",
-					Method = "󰆧 ",
-					Module = "󰏗 ",
-					Namespace = " ",
-					Struct = "󰙅 ",
+					Class = "[C] ",
+					Constructor = "[Ctor] ",
+					Enum = "[E] ",
+					Field = "[F] ",
+					Function = "[Fn] ",
+					Interface = "[I] ",
+					Method = "[M] ",
+					Module = "[Mod] ",
+					Namespace = "[N] ",
+					Struct = "[S] ",
 				},
 				filter_kind = {
 					"Class",
@@ -708,8 +708,7 @@ return {
 			},
 			spec = {
 				{ "<leader>s", group = "[S]earch" },
-				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>H", group = "Git [H]unk", mode = { "n", "v" } },
+				-- { "<leader>H", group = "Git [H]unk", mode = { "n", "v" } },
 			},
 		},
 	},
@@ -844,10 +843,10 @@ return {
 				underline = { severity = vim.diagnostic.severity.ERROR },
 				signs = vim.g.have_nerd_font and {
 					text = {
-						[vim.diagnostic.severity.ERROR] = "󰅚 ",
-						[vim.diagnostic.severity.WARN] = "󰀪 ",
-						[vim.diagnostic.severity.INFO] = "󰋽 ",
-						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						[vim.diagnostic.severity.ERROR] = "E ",
+						[vim.diagnostic.severity.WARN] = "W ",
+						[vim.diagnostic.severity.INFO] = "I ",
+						[vim.diagnostic.severity.HINT] = "H ",
 					},
 				} or {},
 				virtual_text = {
@@ -986,21 +985,21 @@ return {
 		opts_extend = { "sources.default" },
 		config = function()
 			local custom_icons = {
-				Class = " ",
-				Constructor = " ",
-				Enum = " ",
-				Field = " ",
-				Function = "󰊕 ",
-				Interface = " ",
-				Method = "󰆧 ",
-				Module = "󰏗 ",
-				Namespace = " ",
-				Struct = "󰙅 ",
-				Property = " ",
-				Variable = "󰀫 ",
-				Snippet = " ",
-				Keyword = "󰌋 ",
-				Text = "󰉿 ",
+				Class = "C ",
+				Constructor = "Ctor ",
+				Enum = "E ",
+				Field = "F ",
+				Function = "Fn ",
+				Interface = "I ",
+				Method = "M ",
+				Module = "Mod ",
+				Namespace = "N ",
+				Struct = "S ",
+				Property = "P ",
+				Variable = "V ",
+				Snippet = "Snip ",
+				Keyword = "Key ",
+				Text = "Txt ",
 			}
 			require("blink.cmp").setup({
 				keymap = { preset = "default" },
@@ -1161,7 +1160,7 @@ return {
 					active = function()
 						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
 						mode = mode and mode:sub(1, 1):lower() or ""
-						local git = vim.b.gitsigns_head and (" " .. vim.b.gitsigns_head) or ""
+						local git = vim.b.gitsigns_head and vim.b.gitsigns_head or ""
 						local git_dict = vim.b.gitsigns_status_dict
 						if git_dict then
 							local diffs = {}
@@ -1181,7 +1180,7 @@ return {
 						local diagnostics = MiniStatusline.section_diagnostics({
 							trunc_width = 75,
 							icon = "",
-							signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 " },
+							signs = { ERROR = "E ", WARN = "W ", INFO = "I ", HINT = "H " },
 						})
 						local filename = vim.fn.expand("%:t")
 						if filename == "" then
