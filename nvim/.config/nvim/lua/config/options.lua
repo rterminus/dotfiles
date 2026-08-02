@@ -56,6 +56,9 @@ vim.filetype.add({
 	extension = {
 		conf = "ini",
 	},
+	filename = {
+		["tmux.conf"] = "tmux",
+	},
 })
 
 function _G.minimal_foldtext()
