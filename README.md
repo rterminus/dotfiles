@@ -13,10 +13,10 @@ everything lives in the terminal — no fluff, just focus.
 - **nvim** — Neovim, tuned for code and prose
 - **tmux** — terminal multiplexer, session persistence
 - **rofi** — app launcher, window switcher, power menu
-- waybar — status bar
-- dunst — notification daemon
-- yazi — terminal file manager
-- bin — handful of utility scripts
+- **waybar** — status bar
+- **dunst** — notification daemon
+- **yazi** — terminal file manager
+- **bin** — handful of utility scripts
 
 everything shares a single, coherent aesthetic and is controlled almost entirely
 by the keyboard.
@@ -37,6 +37,8 @@ by the keyboard.
 arch linux (or any arch-based distro), git, and gnu stow. the configs assume you
 already have the required programs installed (hyprland, kitty, etc.).
 
+### cloning
+
 ```bash
 git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
 cd ~/dotfiles
@@ -51,7 +53,7 @@ If you prefer to pick and choose, just stow individual packages:
 stow hypr kitty nvim waybar ...
 ```
 
-post-install
+## post-install
 
 Most components will pick up the new configs immediately. For Hyprland, log out
 and back in (or reload). For Zsh, open a new terminal or source ~/.zshrc.
