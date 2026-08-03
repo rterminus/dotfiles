@@ -43,8 +43,8 @@ vim.keymap.set("n", "<Leader>gdf", "<cmd>DBUIFindBuffer<cr>", { desc = "find db 
 
 -- telekasten
 vim.keymap.set("n", "<leader>zz", "<cmd>Telekasten panel<CR>", { desc = "telekasten panel" })
-vim.keymap.set("n", "<leader>zs", "<cmd>Telekasten find_notes<CR>", { desc = "find notes" })
-vim.keymap.set("n", "<leader>zf", "<cmd>Telekasten search_notes<CR>", { desc = "search in notes" })
+vim.keymap.set("n", "<leader>zs", "<cmd>Telekasten find_notes<CR>", { desc = "search in notes" })
+vim.keymap.set("n", "<leader>zf", "<cmd>Telekasten search_notes<CR>", { desc = "find in notes" })
 vim.keymap.set("n", "<leader>zd", "<cmd>Telekasten goto_today<CR>", { desc = "go to today" })
 vim.keymap.set("n", "<leader>zo", "<cmd>Telekasten follow_link<CR>", { desc = "follow link" })
 vim.keymap.set("n", "<leader>zn", "<cmd>Telekasten new_note<CR>", { desc = "new note" })
