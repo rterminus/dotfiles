@@ -40,7 +40,7 @@ already have the required programs installed (hyprland, kitty, etc.).
 ### cloning
 
 ```bash
-git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+git clone https://github.com/rterminus/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 stow */ # symlinks everything except the assets folder
 ```
