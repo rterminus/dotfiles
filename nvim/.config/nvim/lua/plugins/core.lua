@@ -1160,6 +1160,10 @@ return {
 					active = function()
 						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
 						mode = mode and mode:sub(1, 1):lower() or ""
+
+						local rec_reg = vim.fn.reg_recording()
+						local recording = rec_reg ~= "" and ("REC @" .. rec_reg) or ""
+
 						local git = vim.b.gitsigns_head and vim.b.gitsigns_head or ""
 						local git_dict = vim.b.gitsigns_status_dict
 						if git_dict then
@@ -1180,7 +1184,7 @@ return {
 						local diagnostics = MiniStatusline.section_diagnostics({
 							trunc_width = 75,
 							icon = "",
-							signs = { ERROR = "E ", WARN = "W ", INFO = "I ", HINT = "H " },
+							signs = { ERROR = "E:", WARN = "W:", INFO = "I:", HINT = "H:" },
 						})
 						local filename = vim.fn.expand("%:t")
 						if filename == "" then
@@ -1233,7 +1237,7 @@ return {
 						local harpoon_status = get_harpoon_marks()
 
 						return MiniStatusline.combine_groups({
-							{ hl = mode_hl, strings = { mode } },
+							{ hl = mode_hl, strings = { mode, recording } },
 							{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
 							"%<",
 							{ hl = "MiniStatuslineFilename", strings = { harpoon_status, filename } },
@@ -1243,6 +1247,11 @@ return {
 						})
 					end,
 				},
+			})
+			vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+				callback = function()
+					vim.cmd("redrawstatus")
+				end,
 			})
 			---@diagnostic disable-next-line: duplicate-set-field
 			statusline.section_location = function()
