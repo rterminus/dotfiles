@@ -1160,10 +1160,6 @@ return {
 					active = function()
 						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
 						mode = mode and mode:sub(1, 1):lower() or ""
-
-						local rec_reg = vim.fn.reg_recording()
-						local recording = rec_reg ~= "" and ("REC @" .. rec_reg) or ""
-
 						local git = vim.b.gitsigns_head and vim.b.gitsigns_head or ""
 						local git_dict = vim.b.gitsigns_status_dict
 						if git_dict then
@@ -1196,16 +1192,15 @@ return {
 						if vim.bo.readonly or not vim.bo.modifiable then
 							filename = filename .. " [-]"
 						end
+						local rec_reg = vim.fn.reg_recording()
+						local recording = rec_reg ~= "" and ("REC @" .. rec_reg .. " ") or ""
+            local fileenc = 
 						local fileinfo = vim.bo.filetype
-						if vim.g.have_nerd_font and fileinfo ~= "" then
-							local devicons = require("nvim-web-devicons")
-							local icon =
-								devicons.get_icon(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = true })
-							if icon then
-								fileinfo = icon .. " " .. fileinfo
-							end
+						if fileinfo ~= "" then
+							fileinfo = fileinfo
 						end
-						local location = "%2l:%-2v"
+						local pct = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+						local location = string.format("(%d)%%2l:%%-2v", pct)
 						local function get_harpoon_marks()
 							local ok, harpoon = pcall(require, "harpoon")
 							if not ok then
@@ -1237,12 +1232,12 @@ return {
 						local harpoon_status = get_harpoon_marks()
 
 						return MiniStatusline.combine_groups({
-							{ hl = mode_hl, strings = { mode, recording } },
+							{ hl = mode_hl, strings = { mode } },
 							{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
 							"%<",
 							{ hl = "MiniStatuslineFilename", strings = { harpoon_status, filename } },
 							"%=",
-							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+							{ hl = "MiniStatuslineFileinfo", strings = { recording, fileinfo } },
 							{ hl = mode_hl, strings = { location } },
 						})
 					end,
