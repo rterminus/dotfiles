@@ -9,7 +9,6 @@
 
     "modules-left": [
         "hyprland/workspaces",
-        "custom/separator",
         "custom/media"
     ],
     "modules-center": [
@@ -22,7 +21,6 @@
         "memory",
         "pulseaudio",
         "network",
-        "custom/separator",
         "tray",
         "battery",
         "clock"
