@@ -230,7 +230,7 @@ return {
 				inject_style("@type.builtin", { bold = true, italic = true })
 
 				local fg_main, fg_dim, fg_dark, bg_status, bg_none, black, bg_hl =
-					"#C6C6C6", "#707070", "#3A3A3A", "#151515", "none", "#030303", "#1A1A1A"
+					"#C6C6C6", "#808080", "#3A3A3A", "#151515", "none", "#030303", "#1A1A1A"
 
 				local manual_overrides = {
 					Normal = { bg = bg_none },
@@ -1600,21 +1600,6 @@ die
 	},
 	{ "mattn/calendar-vim" },
 	{
-		"vimpostor/vim-tpipeline",
-		lazy = false,
-		dependencies = { "echasnovski/mini.nvim" },
-		config = function()
-			if vim.env.TMUX ~= nil then
-				vim.g.tpipeline_autoembed = 1
-				vim.opt.laststatus = 0
-			else
-				vim.opt.laststatus = 3
-				vim.opt.showtabline = 1
-				vim.opt.tabline = ""
-			end
-		end,
-	},
-	{
 		"abecodes/tabout.nvim",
 		lazy = false,
 		dependencies = {
@@ -1641,36 +1626,6 @@ die
 				},
 				ignore_beginning = true,
 				exclude = {},
-			})
-		end,
-	},
-	{
-		"b0o/incline.nvim",
-		cond = function()
-			return vim.env.TMUX ~= nil
-		end,
-		event = "VeryLazy",
-		config = function()
-			local hostname = vim.fn.hostname()
-			local tmux_session = vim.fn.system("tmux display-message -p '#S'"):gsub("\n", "")
-
-			require("incline").setup({
-				window = {
-					padding = 0,
-					margin = { horizontal = 1, vertical = 1 },
-					placement = { horizontal = "right", vertical = "top" },
-				},
-				hide = {
-					cursorline = true,
-					focused_win = false,
-					only_win = false,
-				},
-				render = function()
-					return {
-						{ " " .. hostname .. " ", group = "String" },
-						{ " [" .. tmux_session .. "]", group = "Keyword" },
-					}
-				end,
 			})
 		end,
 	},
