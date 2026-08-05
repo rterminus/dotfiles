@@ -1479,12 +1479,6 @@ die
 						},
 						{
 							icon = "",
-							key = "d",
-							desc = "> dotf   ",
-							action = ":lua Snacks.picker.files({ cwd = vim.fn.expand('~/dotfiles') })",
-						},
-						{
-							icon = "",
 							key = "z",
 							desc = "> zettel ",
 							action = ":e /home/terminus/second-brain/index.md",
