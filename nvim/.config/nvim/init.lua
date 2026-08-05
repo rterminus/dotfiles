@@ -12,6 +12,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+_G.harpoon_context = function()
+	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("\n", "")
+	if branch == "" then
+		return "global"
+	end
+	return branch
+end
+
 require("lazy").setup({
 	spec = { import = "plugins" },
 	rocks = { enabled = false },

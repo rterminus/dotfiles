@@ -1194,11 +1194,10 @@ return {
 						end
 						local rec_reg = vim.fn.reg_recording()
 						local recording = rec_reg ~= "" and ("REC @" .. rec_reg .. " ") or ""
-            local fileenc = 
-						local fileinfo = vim.bo.filetype
-						if fileinfo ~= "" then
-							fileinfo = fileinfo
-						end
+						local fileenc = vim.bo.fileencoding
+						local filefmt = vim.bo.fileformat
+						local filetype = vim.bo.filetype
+						local fileinfo = (fileenc .. "[" .. filefmt .. "] " .. filetype)
 						local pct = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
 						local location = string.format("(%d)%%2l:%%-2v", pct)
 						local function get_harpoon_marks()
@@ -1207,14 +1206,14 @@ return {
 								return ""
 							end
 
-							local list = harpoon:list()
+							local context = _G.harpoon_context and _G.harpoon_context() or nil
+							local list = harpoon:list(context)
 							if list:length() == 0 then
 								return ""
 							end
 
 							local current_file = vim.api.nvim_buf_get_name(0)
 							local marks = {}
-
 							for i = 1, list:length() do
 								local item = list:get(i)
 								if item and item.value then
@@ -1226,7 +1225,6 @@ return {
 									end
 								end
 							end
-
 							return table.concat(marks, " ")
 						end
 						local harpoon_status = get_harpoon_marks()
@@ -1248,10 +1246,6 @@ return {
 					vim.cmd("redrawstatus")
 				end,
 			})
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
 		end,
 	},
 	{
@@ -1551,7 +1545,7 @@ die
 				desc = "toggle zen mode",
 			},
 			{
-				"<c-\\>",
+				"<leader>tt",
 				function()
 					Snacks.terminal()
 				end,
