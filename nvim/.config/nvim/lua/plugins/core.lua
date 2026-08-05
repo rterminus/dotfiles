@@ -264,7 +264,7 @@ return {
 					MiniStatuslineModeVisual = { fg = black, bg = "#666666", bold = true },
 					MiniStatuslineModeReplace = { fg = black, bg = fg_dark, bold = true },
 					MiniStatuslineModeCommand = { fg = black, bg = fg_main, bold = true },
-					MiniStatuslineFilename = { fg = fg_main, bg = bg_status },
+					MiniStatuslineFilename = { fg = fg_main, bg = bg_none },
 					MiniStatuslineDevinfo = { fg = fg_dim, bg = bg_status },
 					MiniStatuslineFileinfo = { fg = fg_dim, bg = bg_status },
 					MiniStatuslineInactive = { fg = fg_dark, bg = bg_none },

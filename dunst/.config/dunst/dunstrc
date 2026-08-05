@@ -13,7 +13,7 @@
     width = 280
     height = 110
     offset = 15x15
-    origin = top-right
+    origin = bottom-right
 
     corner_radius = 0
     frame_width = 1
