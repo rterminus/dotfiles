@@ -22,7 +22,7 @@ hl.config({
 	device = {
 		{
 			name = "pnp0c50:0b-093a:0255-touchpad",
-			sensitivity = 0.75,
+			sensitivity = 0.2,
 		},
 		{
 			name = "pnp0c50:0b-093a:0255-mouse",
