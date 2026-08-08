@@ -66,6 +66,7 @@ alias sc="sesh connect \$(sesh list -tzT | fzf --reverse --height 50%)"
 alias sl="sesh last"
 alias tkill="tmux kill-server"
 alias pkgupd='sudo pacman -Syyu && yay -Syyu'
+alias pomot='pomo 45m 15m'
 if command -v eza > /dev/null; then
     alias ls='eza --icons'
     alias ll='eza -l --icons --git --group-directories-first'
