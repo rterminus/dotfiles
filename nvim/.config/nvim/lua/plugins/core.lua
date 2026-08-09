@@ -1182,10 +1182,22 @@ return {
 							icon = "",
 							signs = { ERROR = "E:", WARN = "W:", INFO = "I:", HINT = "H:" },
 						})
-						local filename = vim.fn.expand("%:t")
-						if filename == "" then
-							filename = "[no name]"
+						local function short_relative_path()
+							local full = vim.fn.expand("%:.")
+							if full == "" then
+								return "[no name]"
+							end
+							local dir = vim.fn.fnamemodify(full, ":h")
+							local file = vim.fn.fnamemodify(full, ":t")
+							if dir == "" or dir == "." then
+								return file
+							end
+							local parts = vim.fn.split(dir, "/")
+							local keep = math.min(#parts, 2)
+							local short_dir = table.concat(parts, "/", #parts - keep + 1)
+							return short_dir .. "/" .. file
 						end
+						local filename = short_relative_path()
 						if vim.bo.modified then
 							filename = filename .. " [+]"
 						end
@@ -1199,7 +1211,7 @@ return {
 						local filetype = vim.bo.filetype
 						local fileinfo = (fileenc .. "[" .. filefmt .. "] " .. filetype)
 						local pct = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-						local location = string.format("%d%% %%2l:%%-2v", pct)
+						local location = string.format("%d%%%% %%2l:%%-2v", pct)
 						local function get_harpoon_marks()
 							local ok, harpoon = pcall(require, "harpoon")
 							if not ok then
