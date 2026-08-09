@@ -1199,7 +1199,7 @@ return {
 						local filetype = vim.bo.filetype
 						local fileinfo = (fileenc .. "[" .. filefmt .. "] " .. filetype)
 						local pct = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-						local location = string.format("(%d)%%2l:%%-2v", pct)
+						local location = string.format("%d%% %%2l:%%-2v", pct)
 						local function get_harpoon_marks()
 							local ok, harpoon = pcall(require, "harpoon")
 							if not ok then
