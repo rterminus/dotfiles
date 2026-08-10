@@ -484,6 +484,9 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("aerial").setup({
+				filetype_map = {
+					telekasten = "markdown",
+				},
 				backends = { "lsp", "treesitter", "markdown", "man" },
 				icons = {
 					Class = "[C] ",
