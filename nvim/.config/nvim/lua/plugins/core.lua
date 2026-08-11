@@ -972,6 +972,7 @@ return {
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				telekasten = { "prettierd", "prettier", stop_after_first = true },
 				java = { "google-java-format" },
+				python = { "black" },
 			},
 		},
 	},
