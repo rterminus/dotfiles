@@ -109,7 +109,18 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-			cmdline = { enabled = true, view = "cmdline" },
+			cmdline = {
+				enabled = true,
+				view = "cmdline",
+				format = {
+					cmdline = { icon = ":" },
+					search_down = { icon = "?↓" },
+					search_up = { icon = "?↑" },
+					lua = { icon = "lua" },
+					help = { icon = "help" },
+					input = { icon = "input" },
+				},
+			},
 			lsp = {
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -160,19 +171,19 @@ return {
 		cmd = "Trouble",
 		opts = {},
 	},
-	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		keys = {
-			{ "<leader>-", "<cmd>Yazi<cr>", desc = "open yazi" },
-			{ "<leader>_", "<cmd>Yazi cwd<cr>", desc = "open yazi (cwd)" },
-		},
-		opts = {
-			opener = function(url)
-				require("yazi").open(url)
-			end,
-		},
-	},
+	-- {
+	-- 	"mikavilpas/yazi.nvim",
+	-- 	event = "VeryLazy",
+	-- 	keys = {
+	-- 		{ "<leader>-", "<cmd>Yazi<cr>", desc = "open yazi" },
+	-- 		{ "<leader>_", "<cmd>Yazi cwd<cr>", desc = "open yazi (cwd)" },
+	-- 	},
+	-- 	opts = {
+	-- 		opener = function(url)
+	-- 			require("yazi").open(url)
+	-- 		end,
+	-- 	},
+	-- },
 	{
 		"vim-test/vim-test",
 		keys = { { "<leader>tn", "<cmd>TestNearest<cr>" }, { "<leader>tf", "<cmd>TestFile<cr>" } },
@@ -346,21 +357,21 @@ return {
 			})
 		end,
 	},
-	{
-		"lukas-reineke/virt-column.nvim",
-		config = function()
-			require("virt-column").setup({ char = "│" })
-			vim.api.nvim_set_hl(0, "VirtColumn", { fg = "#4C4C4C", default = false })
-		end,
-	},
-	{
-		"m4xshen/smartcolumn.nvim",
-		opts = {
-			colorcolumn = "100",
-			disabled_filetypes = { "help", "text", "markdown", "lazy", "mason", "neo-tree", "TelescopePrompt" },
-			scope = "window",
-		},
-	},
+	-- {
+	-- 	"lukas-reineke/virt-column.nvim",
+	-- 	config = function()
+	-- 		require("virt-column").setup({ char = "│" })
+	-- 		vim.api.nvim_set_hl(0, "VirtColumn", { fg = "#4C4C4C", default = false })
+	-- 	end,
+	-- },
+	-- {
+	-- 	"m4xshen/smartcolumn.nvim",
+	-- 	opts = {
+	-- 		colorcolumn = "100",
+	-- 		disabled_filetypes = { "help", "text", "markdown", "lazy", "mason", "neo-tree", "TelescopePrompt" },
+	-- 		scope = "window",
+	-- 	},
+	-- },
 	{
 		"tpope/vim-projectionist",
 		event = { "BufReadPre", "BufNewFile" },
@@ -1157,13 +1168,47 @@ return {
 			vim.keymap.set("n", "<leader>E", function()
 				require("mini.files").open()
 			end, { desc = "Open mini.files (cwd)" })
+
 			local statusline = require("mini.statusline")
+
+			vim.api.nvim_set_hl(0, "StatuslineModeNormal", { fg = "#C6C6C6", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineModeInsert", { fg = "#FFFFFF", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineModeVisual", { fg = "#AAAAAA", bg = "none", bold = true, italic = true })
+			vim.api.nvim_set_hl(0, "StatuslineModeReplace", { fg = "#707070", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineModeCommand", { fg = "#C6C6C6", bg = "none", bold = true })
+
+			vim.api.nvim_set_hl(0, "StatuslineGit", { fg = "#888888", bg = "none" })
+			vim.api.nvim_set_hl(0, "StatuslineDiagError", { fg = "#C6C6C6", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineDiagWarn", { fg = "#888888", bg = "none" })
+			vim.api.nvim_set_hl(0, "StatuslineFilename", { fg = "#C6C6C6", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineFileInfo", { fg = "#555555", bg = "none" })
+			vim.api.nvim_set_hl(0, "StatuslineLocation", { fg = "#909090", bg = "none", bold = true })
+			vim.api.nvim_set_hl(0, "StatuslineDim", { fg = "#3A3A3A", bg = "none" })
+
 			statusline.setup({
-				use_icons = vim.g.have_nerd_font,
+				use_icons = false,
 				content = {
 					active = function()
-						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-						mode = mode and mode:sub(1, 1):lower() or ""
+						local mode_str = vim.fn.mode()
+						local mode_hl = "StatuslineModeNormal"
+						local mode_text = "N"
+						if mode_str:find("i") then
+							mode_hl = "StatuslineModeInsert"
+							mode_text = "I"
+						elseif mode_str:find("v") or mode_str:find("V") or mode_str:find("\22") then
+							mode_hl = "StatuslineModeVisual"
+							mode_text = "V"
+						elseif mode_str:find("R") then
+							mode_hl = "StatuslineModeReplace"
+							mode_text = "R"
+						elseif mode_str:find("c") then
+							mode_hl = "StatuslineModeCommand"
+							mode_text = "C"
+						end
+
+						local rec_reg = vim.fn.reg_recording()
+						local recording = rec_reg ~= "" and ("REC @" .. rec_reg .. " ") or ""
+
 						local git = vim.b.gitsigns_head and vim.b.gitsigns_head or ""
 						local git_dict = vim.b.gitsigns_status_dict
 						if git_dict then
@@ -1178,14 +1223,46 @@ return {
 								table.insert(diffs, "-" .. git_dict.removed)
 							end
 							if #diffs > 0 then
-								git = git .. "  " .. table.concat(diffs, " ")
+								git = git .. " " .. table.concat(diffs, " ")
 							end
 						end
+
 						local diagnostics = MiniStatusline.section_diagnostics({
 							trunc_width = 75,
 							icon = "",
 							signs = { ERROR = "E:", WARN = "W:", INFO = "I:", HINT = "H:" },
 						})
+
+						local function get_harpoon_marks()
+							local ok, harpoon = pcall(require, "harpoon")
+							if not ok then
+								return ""
+							end
+							local context = _G.harpoon_context and _G.harpoon_context() or nil
+							local list = harpoon:list(context)
+							if list:length() == 0 then
+								return ""
+							end
+							local current_file = vim.api.nvim_buf_get_name(0)
+							local marks = {}
+							for i = 1, list:length() do
+								local item = list:get(i)
+								if item and item.value then
+									local is_current = current_file:find(item.value, 1, true) ~= nil
+									if is_current then
+										table.insert(marks, "[" .. i .. "]")
+									else
+										table.insert(marks, tostring(i))
+									end
+								end
+							end
+							return table.concat(marks, " ")
+						end
+						local harpoon_status = get_harpoon_marks()
+						if harpoon_status ~= "" then
+							harpoon_status = harpoon_status .. " "
+						end
+
 						local function short_relative_path()
 							local full = vim.fn.expand("%:.")
 							if full == "" then
@@ -1208,55 +1285,34 @@ return {
 						if vim.bo.readonly or not vim.bo.modifiable then
 							filename = filename .. " [-]"
 						end
-						local rec_reg = vim.fn.reg_recording()
-						local recording = rec_reg ~= "" and ("REC @" .. rec_reg .. " ") or ""
+
 						local fileenc = vim.bo.fileencoding
 						local filefmt = vim.bo.fileformat
 						local filetype = vim.bo.filetype
 						local fileinfo = (fileenc .. "[" .. filefmt .. "] " .. filetype)
+
 						local pct = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-						local location = string.format("%d%%%% %%2l:%%-2v", pct)
-						local function get_harpoon_marks()
-							local ok, harpoon = pcall(require, "harpoon")
-							if not ok then
-								return ""
-							end
+						local location = string.format("(%d%%%%) %d:%d", pct, vim.fn.line("."), vim.fn.col("."))
 
-							local context = _G.harpoon_context and _G.harpoon_context() or nil
-							local list = harpoon:list(context)
-							if list:length() == 0 then
-								return ""
-							end
+						local left = string.format(
+							"%%#%s# %s %%#StatuslineModeNormal# %s%%#StatuslineGit# %s %%#StatuslineDiagError#%s %%#StatuslineFileInfo#%s%%#StatuslineFilename#%s",
+							mode_hl,
+							mode_text,
+							recording,
+							git,
+							diagnostics,
+							harpoon_status,
+							filename
+						)
 
-							local current_file = vim.api.nvim_buf_get_name(0)
-							local marks = {}
-							for i = 1, list:length() do
-								local item = list:get(i)
-								if item and item.value then
-									local is_current = current_file:find(item.value, 1, true) ~= nil
-									if is_current then
-										table.insert(marks, "[" .. i .. "]")
-									else
-										table.insert(marks, tostring(i))
-									end
-								end
-							end
-							return table.concat(marks, " ")
-						end
-						local harpoon_status = get_harpoon_marks()
+						local right =
+							string.format("%%#StatuslineFileInfo#%s %%#StatuslineLocation# %s ", fileinfo, location)
 
-						return MiniStatusline.combine_groups({
-							{ hl = mode_hl, strings = { mode } },
-							{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
-							"%<",
-							{ hl = "MiniStatuslineFilename", strings = { harpoon_status, filename } },
-							"%=",
-							{ hl = "MiniStatuslineFileinfo", strings = { recording, fileinfo } },
-							{ hl = mode_hl, strings = { location } },
-						})
+						return left .. "%=" .. right
 					end,
 				},
 			})
+
 			vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
 				callback = function()
 					vim.cmd("redrawstatus")
