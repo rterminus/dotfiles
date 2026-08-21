@@ -1549,12 +1549,12 @@ die
 							desc = "> config ",
 							action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })",
 						},
-						{
-							icon = "",
-							key = "z",
-							desc = "> zettel ",
-							action = ":e /home/terminus/second-brain/index.md",
-						},
+						-- {
+						-- 	icon = "",
+						-- 	key = "z",
+						-- 	desc = "> zettel ",
+						-- 	action = ":e /home/terminus/second-brain/index.md",
+						-- },
 						{ icon = "", key = "q", desc = "> quit   ", action = ":qa" },
 					},
 				},
