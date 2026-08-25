@@ -73,5 +73,15 @@ use = "lpnh/fr"
 rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"
 
+[[plugin.deps]]
+use = "llanosrocas/yaziline"
+rev = "029b27d"
+hash = "ceeb45e796faf0d9eed10831ffec7701"
+
+[[plugin.deps]]
+use = "lihuax-me/hevi"
+rev = "6cdac97"
+hash = "c3e2f01b50abced971c7f3491bd0f3bc"
+
 [flavor]
 deps = []
