@@ -36,10 +36,10 @@ hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
 
 -- resizing
-hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + left", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + up", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + down", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + H", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + L", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
 
 -- workspaces
 for i = 1, 9 do
