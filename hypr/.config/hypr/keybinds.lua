@@ -46,7 +46,15 @@ for i = 1, 9 do
 	local ws = tostring(i)
 	hl.bind(mainMod .. " + " .. ws, hl.dsp.focus({ workspace = i }))
 	hl.bind(mainMod .. " + SHIFT + " .. ws, hl.dsp.window.move({ workspace = i }))
-	hl.bind(mainMod .. " + ALT + " .. ws, hl.dsp.exec_cmd("~/dotfiles/bin/move_all_windows.sh " .. ws))
+	hl.bind(mainMod .. " + ALT + " .. ws, function()
+		local active = hl.get_active_workspace()
+		if not active then
+			return
+		end
+		for _, win in ipairs(active:get_windows()) do
+			hl.dispatch(hl.dsp.window.move({ workspace = ws, window = win }))
+		end
+	end)
 end
 
 -- multimedia
