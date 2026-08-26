@@ -923,13 +923,13 @@ return {
 						},
 					},
 				},
-        vhdl_ls = {},
+				vhdl_ls = {},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(
 				ensure_installed,
-				{ "stylua", "prettierd", "markdownlint", "codelldb", "jdtls", "java-debug-adapter", "java-test" }
+				{ "stylua", "prettierd", "markdownlint", "codelldb", "jdtls", "java-debug-adapter", "java-test", "vsg" }
 			)
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
@@ -985,6 +985,7 @@ return {
 				telekasten = { "prettierd", "prettier", stop_after_first = true },
 				java = { "google-java-format" },
 				python = { "black" },
+				vhdl = { "vsg" },
 			},
 		},
 	},
@@ -1002,20 +1003,32 @@ return {
 		config = function()
 			local custom_icons = {
 				Class = "Cl ",
+				Color = "Col ",
+				Constant = "Cst ",
 				Constructor = "Ctor ",
 				Enum = "En ",
+				EnumMember = "EnM ",
+				Event = "Evt ",
 				Field = "Fd ",
+				File = "Fil ",
+				Folder = "Fol ",
 				Function = "Fn ",
 				Interface = "If ",
+				Keyword = "Kw ",
 				Method = "Me ",
 				Module = "Mod ",
 				Namespace = "Ns ",
-				Struct = "Stc ",
+				Operator = "Op ",
 				Property = "Prp ",
-				Variable = "Var ",
+				Reference = "Ref ",
 				Snippet = "Snp ",
-				Keyword = "Kw ",
+				Struct = "Stc ",
 				Text = "Txt ",
+				Type = "Typ ",
+				TypeParameter = "TypP ",
+				Unit = "Unt ",
+				Value = "Val ",
+				Variable = "Var ",
 			}
 			require("blink.cmp").setup({
 				keymap = { preset = "default" },
@@ -1342,7 +1355,7 @@ return {
 					"markdown",
 					"markdown_inline",
 					"query",
-          "vhdl",
+					"vhdl",
 					"vim",
 					"vimdoc",
 				},
