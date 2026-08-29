@@ -58,7 +58,7 @@
 
     "clock": {
         "interval": 1,
-        "format": "{:%a,%e %b  %H:%M:%S}",
+        "format": "<span text-transform='lowercase'>{:%a,%e %b  %H:%M:%S}</span>",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
 
