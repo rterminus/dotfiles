@@ -1,16 +1,5 @@
 * {
   font-family: "IosevkaTerm Nerd Font", monospace;
-  /* font-feature-settings: */
-  /*   "cv10" 6, */
-  /*   "cv01" 3, */
-  /*   "cv02" 1, */
-  /*   "cv03" 1, */
-  /*   "cv04" 1, */
-  /*   "cv05" 3, */
-  /*   "cv06" 1, */
-  /*   "cv07" 3, */
-  /*   "cv08" 2, */
-  /*   "cv09" 1; */
   font-size: 12px;
   font-weight: bold;
   margin: 0;
@@ -26,20 +15,22 @@ window#waybar {
   padding: 0px;
 }
 
-#workspaces,
 #custom-caffeine,
 #custom-updates,
-#custom-separator,
 #temperature,
 #cpu,
 #memory,
-#clock,
 #pulseaudio,
 #battery,
 #network {
-  padding: 0px 8px;
+  padding: 0px;
   color: #888888;
   border-radius: 0px;
+}
+
+#custom-separator {
+  color: #4c4c4c;
+  padding: 0px 4px;
 }
 
 #custom-media,
@@ -47,10 +38,6 @@ window#waybar {
 #battery {
   color: #b8b8b8;
   font-weight: bolder;
-}
-
-#custom-separator {
-  color: #4c4c4c;
 }
 
 #tray {
@@ -70,8 +57,8 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background-color: #1a1a1a;
-  color: #b8b8b8;
+  background-color: transparent;
+  color: #eeeeee;
   box-shadow: none;
   text-shadow: none;
 }
