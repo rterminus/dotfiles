@@ -12,6 +12,7 @@
         "custom/media"
     ],
     "modules-center": [
+        "clock"
     ],
     "modules-right": [
         "custom/updates",
@@ -23,7 +24,6 @@
         "network",
         "tray",
         "battery",
-        "clock"
     ],
 
     "hyprland/workspaces": {
