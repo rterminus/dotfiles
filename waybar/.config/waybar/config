@@ -44,7 +44,8 @@
     "custom/media": {
         "format": "[ med:{} ]",
         "exec": "playerctl metadata --format '{{artist}} - {{title}}' --follow 2>/dev/null",
-        "max-length": 45,
+        "max-length": 100,
+        "ellipsis": true,
         "on-click": "playerctl play-pause",
         "on-scroll-up": "playerctl next",
         "on-scroll-down": "playerctl previous",
@@ -61,7 +62,7 @@
     },
 
     "custom/separator": {
-        "format": " / ",
+        "format": " ",
         "tooltip": false
     },
 

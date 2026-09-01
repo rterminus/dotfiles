@@ -972,20 +972,37 @@ return {
 				end
 			end,
 			formatters_by_ft = {
+				c = { "clang-format" },
+				cpp = { "clang-format" },
+				java = { "google-java-format" },
+				python = { "black", "isort" },
 				lua = { "stylua" },
+				html = { "prettierd", "prettier", stop_after_first = true },
+				css = { "prettierd", "prettier", stop_after_first = true },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
 				typescript = { "prettierd", "prettier", stop_after_first = true },
 				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-				html = { "prettierd", "prettier", stop_after_first = true },
-				css = { "prettierd", "prettier", stop_after_first = true },
 				astro = { "prettier", stop_after_first = true },
 				json = { "prettierd", "prettier", stop_after_first = true },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				telekasten = { "prettierd", "prettier", stop_after_first = true },
-				java = { "google-java-format" },
-				python = { "black" },
 				vhdl = { "vsg" },
+			},
+			formatters = {
+				["clang-format"] = {},
+				prettier = {
+					prepend_args = function(_, ctx)
+						local indent = vim.bo[ctx.buf].shiftwidth
+						return { "--tab-width", tostring(indent) }
+					end,
+				},
+				prettierd = {
+					prepend_args = function(_, ctx)
+						local indent = vim.bo[ctx.buf].shiftwidth
+						return { "--tab-width", tostring(indent) }
+					end,
+				},
 			},
 		},
 	},
@@ -1093,7 +1110,7 @@ return {
 					end,
 				},
 				snippets = { preset = "default" },
-				fuzzy = { implementation = "lua" },
+				fuzzy = { implementation = "rust" },
 				signature = { enabled = true },
 			})
 		end,
