@@ -195,7 +195,7 @@ return {
 		cmd = { "VimuxRunCommand", "VimuxPromptCommand" },
 		keys = { { "<leader>vp", "<cmd>VimuxPromptCommand<cr>" } },
 	},
-	{ "rafamadriz/friendly-snippets" },
+	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
 	{
 		"bjarneo/ash.nvim",
 		priority = 1000,
@@ -548,6 +548,7 @@ return {
 	},
 	{
 		"max397574/better-escape.nvim",
+		event = "InsertEnter",
 		config = function()
 			require("better_escape").setup()
 		end,
@@ -1715,7 +1716,7 @@ die
 	{ "mattn/calendar-vim", cmd = "Calendar" },
 	{
 		"abecodes/tabout.nvim",
-		lazy = false,
+		event = "InsertEnter",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"saghen/blink.cmp",
