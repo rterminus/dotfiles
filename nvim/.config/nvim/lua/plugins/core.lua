@@ -36,6 +36,7 @@ return {
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = { "<leader>h", "<C-e>", "<leader>1", "<leader>2", "<leader>3", "<leader>4", "]h", "[h" },
 		config = function()
 			local harpoon = require("harpoon")
 			harpoon:setup()
@@ -78,6 +79,7 @@ return {
 	},
 	{
 		"ThePrimeagen/refactoring.nvim",
+		keys = { "<leader>re", "<leader>rf", "<leader>rv", "<leader>ri", "<leader>rb", "<leader>rbf", "<leader>rr" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
@@ -464,15 +466,15 @@ return {
 		end,
 	},
 	{ "mfussenegger/nvim-jdtls", ft = "java" },
-	"ThePrimeagen/vim-be-good",
-	{ "brianhuster/live-preview.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
-	{ "stevearc/dressing.nvim", opts = {} },
+	{ "brianhuster/live-preview.nvim", cmd = "LivePreview", dependencies = { "nvim-telescope/telescope.nvim" } },
+	{ "stevearc/dressing.nvim", event = "VeryLazy", opts = {} },
 	{
 		"mbbill/undotree",
 		keys = { { "<leader>U", "<cmd>UndotreeToggle<CR>", desc = "undotree reveal" } },
 	},
 	{
 		"brenoprata10/nvim-highlight-colors",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = { render = "background", enable_named_colors = true, enable_tailwind = true },
 	},
 	{
@@ -489,10 +491,12 @@ return {
 		},
 		opts = { mappings = true },
 	},
-	{ "windwp/nvim-ts-autotag", opts = {} },
+	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" }, opts = {} },
 	{
 		"stevearc/aerial.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		keys = { { "<leader>A", "<cmd>AerialToggle!<CR>", desc = "toggle aerial" } },
+		cmd = { "AerialToggle", "AerialNavToggle", "AerialInfo" },
 		config = function()
 			require("aerial").setup({
 				filetype_map = {
@@ -532,7 +536,6 @@ return {
 					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Next Function" })
 				end,
 			})
-			vim.keymap.set("n", "<leader>A", "<cmd>AerialToggle!<CR>", { desc = "toggle aerial" })
 			vim.api.nvim_create_autocmd("ColorScheme", {
 				pattern = "*",
 				callback = function()
@@ -635,6 +638,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("treesitter-context").setup({
@@ -672,6 +676,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			signs = {
 				add = { text = "+" },
@@ -779,6 +784,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{ "williamboman/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
@@ -1353,6 +1359,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		lazy = false,
 		config = function()
@@ -1480,6 +1487,7 @@ return {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		main = "ibl",
 		opts = {
 			indent = { char = "│", tab_char = "│" },
@@ -1516,6 +1524,7 @@ return {
 	},
 	{
 		"3rd/image.nvim",
+		ft = { "markdown", "vimwiki", "telekasten" },
 		-- dependencies = { { "vhyrro/luarocks.nvim", priority = 1001, opts = { rocks = { "magick" } } } },
 		config = function()
 			require("image").setup({
@@ -1677,6 +1686,7 @@ die
 	},
 	{
 		"renerocksai/telekasten.nvim",
+		cmd = "Telekasten",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			local zettel_home = vim.fn.expand("~/second-brain")
@@ -1702,7 +1712,7 @@ die
 			})
 		end,
 	},
-	{ "mattn/calendar-vim" },
+	{ "mattn/calendar-vim", cmd = "Calendar" },
 	{
 		"abecodes/tabout.nvim",
 		lazy = false,
