@@ -6,16 +6,18 @@ hl.config({
 
 		blur = {
 			enabled = true,
-			size = 8,
-			passes = 3,
+			size = 10,
+			passes = 2,
+      contrast = 0.9,
 			new_optimizations = true,
 			ignore_opacity = true,
 			xray = false,
 			noise = 0.02,
-			contrast = 0.9,
-			brightness = 0.9,
-			vibrancy = 0.2,
-			vibrancy_darkness = 0.0,
+			brightness = 0.8,
+			vibrancy = 0.35,
+			vibrancy_darkness = 0.35,
+      special = false,
+			-- variant = "acrylic"
 		},
 
 		shadow = {

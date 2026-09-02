@@ -4,6 +4,23 @@ local map = vim.keymap.set
 map("n", "o", "o<Esc>")
 map("n", "O", "O<Esc>")
 
+-- smart insert and append
+vim.keymap.set("n", "i", function()
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		return '"_cc'
+	else
+		return "i"
+	end
+end, { expr = true, desc = "smart insert" })
+
+vim.keymap.set("n", "a", function()
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		return '"_cc'
+	else
+		return "a"
+	end
+end, { expr = true, desc = "smart append" })
+
 map("n", "J", "mzJ`z")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
