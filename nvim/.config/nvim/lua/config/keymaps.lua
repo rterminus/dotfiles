@@ -1,5 +1,9 @@
 local map = vim.keymap.set
 
+-- line insertion overrides
+map("n", "o", "o<Esc>")
+map("n", "O", "O<Esc>")
+
 map("n", "J", "mzJ`z")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
