@@ -15,14 +15,24 @@ image_delay = 30
 wrap = "yes"
 
 [opener]
-display = [{ run = 'imv "$@"', detach = true, desc = "display image" }]
-edit = [{ run = 'nvim "$@"', block = true, desc = "neovim" }]
-pdf = [{ run = 'zathura "$@"', detach = true, desc = "zathura" }]
-extract = [
-  { run = 'ouch d -y "$@"', desc = "extract here with ouch", for = "unix" }
+edit = [
+  { run = 'nvim "$@"', block = true, desc = "neovim" },
 ]
-video = [{ run = 'mpv "$@"', detach = true, desc = "mpv" }]
-office = [{ run = 'libreoffice "$@"', detach = true, desc = "libreoffice" }]
+display = [
+  { run = 'imv "$@"', orphan = true, desc = "display image" },
+]
+pdf = [
+  { run = 'zathura "$@"', orphan = true, desc = "zathura" },
+]
+extract = [
+  { run = 'ouch d -y "$@"', desc = "extract here with ouch", for = "unix" },
+]
+video = [
+  { run = 'mpv "$@"', orphan = true, desc = "mpv" },
+]
+office = [
+  { run = 'libreoffice "$@"', orphan = true, desc = "libreoffice" },
+]
 
 [open]
 rules = [
@@ -32,9 +42,7 @@ rules = [
   { mime = "text/*", use = ["edit"] },
   { mime = "inode/directory", use = ["edit"] },
   { mime = "image/*", use = ["display"] },
-  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive}", use = [
-    "extract"
-  ] },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive}", use = ["extract"] },
   { mime = "application/vnd.oasis.opendocument.*", use = ["office"] },
   { mime = "application/vnd.openxmlformats-officedocument.*", use = ["office"] },
   { mime = "application/msword", use = ["office"] },
@@ -47,13 +55,13 @@ prepend_previewers = [
   { mime = "{audio,video}/*", run = "mediainfo" },
   { mime = "application/vnd.*", run = "office" },
   { mime = "text/*", run = "code" },
-  { mime = "application/*zip", run = "ouch --archive-icon=''" },
-  { mime = "application/x-tar", run = "ouch --archive-icon=''" },
-  { mime = "application/bzip2", run = "ouch --archive-icon=''" },
-  { mime = "application/gzip", run = "ouch --archive-icon=''" },
-  { mime = "application/x-7z-compressed", run = "ouch --archive-icon=''" },
-  { mime = "application/x-rar", run = "ouch --archive-icon=''" },
-  { mime = "application/xz", run = "ouch --archive-icon=''" },
+  { mime = "application/*zip", run = "ouch" },
+  { mime = "application/x-tar", run = "ouch" },
+  { mime = "application/bzip2", run = "ouch" },
+  { mime = "application/gzip", run = "ouch" },
+  { mime = "application/x-7z-compressed", run = "ouch" },
+  { mime = "application/x-rar", run = "ouch" },
+  { mime = "application/xz", run = "ouch" },
 ]
 append_previewers = [
   { url = "*", run = "file-extra-metadata" },

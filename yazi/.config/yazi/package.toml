@@ -1,17 +1,17 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "c591a36"
+rev = "4dc7f1b"
 hash = "87472b05a8c420100f6a2b9cde1e7746"
 
 [[plugin.deps]]
 use = "TD-Sky/sudo"
-rev = "be3670f"
-hash = "d0db61602dbb642479b1f4ffbdeae132"
+rev = "e70796a"
+hash = "74129f78c811cfe7c694d86c3f634c26"
 
 [[plugin.deps]]
 use = "orhnk/system-clipboard"
-rev = "75a5330"
-hash = "2eca70f99d25c661e0a92000843d001e"
+rev = "ed946c3"
+hash = "43fff18b85896a499105f621de458ea1"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
@@ -30,13 +30,13 @@ hash = "eff5702573b6cfba61e4ac8b1969629a"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "73a3658"
-hash = "7c51d2641ae6e99e0a8da7713cfd78b9"
+rev = "d2dd310"
+hash = "565d2abf5c125be930ac342099bffd4c"
 
 [[plugin.deps]]
 use = "pirafrank/what-size"
-rev = "c1a8cb6"
-hash = "57056b9728006881d580ccabe8154a9c"
+rev = "1cb456f"
+hash = "7699acf73a1079f8a4afef5cec84ce73"
 
 [[plugin.deps]]
 use = "atareao/convert"
