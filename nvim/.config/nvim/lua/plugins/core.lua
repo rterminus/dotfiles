@@ -1801,4 +1801,8 @@ die
 			vim.g.vimtex_syntax_enabled = 1
 		end,
 	},
+	{
+		"Chaitanyabsprip/present.nvim",
+		opts = {},
+	},
 }
