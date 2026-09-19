@@ -16,6 +16,13 @@ local bundles = {
 }
 vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", true), "\n"))
 
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
+local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+client_capabilities.textDocument.inlayHint = { dynamicRegistration = true }
+local capabilities = require("blink.cmp").get_lsp_capabilities(client_capabilities)
+
 local config = {
 	cmd = {
 		"java",
@@ -44,10 +51,15 @@ local config = {
 
 	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
 
-	capabilities = require("blink.cmp").get_lsp_capabilities(),
+	capabilities = capabilities,
 
 	settings = {
 		java = {
+			inlayHints = {
+				parameterNames = {
+					enabled = "all",
+				},
+			},
 			signatureHelp = { enabled = true },
 			contentProvider = { preferred = "fernflower" },
 			completion = {
@@ -74,17 +86,25 @@ local config = {
 
 	init_options = {
 		bundles = bundles,
+		extendedClientCapabilities = extendedClientCapabilities,
 	},
 }
 
-config.on_attach = function(_client, bufnr)
+config.on_attach = function(client, bufnr)
 	jdtls.setup_dap({ hotcodereplace = "auto", config_overrides = {} })
 
 	require("jdtls.dap").setup_dap_main_class_configs()
 
+	client.server_capabilities.inlayHintProvider = true
+	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
 	local function map(mode, keys, func, desc)
 		vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "Java: " .. desc })
 	end
+
+	map("n", "<leader>th", function()
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+	end, "[T]oggle Inlay [H]ints")
 
 	map("n", "<leader>co", jdtls.organize_imports, "[C]ode [O]rganize Imports")
 	map("n", "<leader>cv", jdtls.extract_variable, "[C]ode Extract [V]ariable")
