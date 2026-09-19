@@ -61,7 +61,6 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 alias hypr-start='~/dotfiles/bin/hypr-start.sh'
-alias marpp='marp --theme ~/.config/marp/theme.css --pdf -p'
 alias s="sesh connect ."
 alias sc="sesh connect \$(sesh list -tzT | fzf --reverse --height 50%)"
 alias sl="sesh last"
