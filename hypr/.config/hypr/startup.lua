@@ -17,7 +17,7 @@ hl.on("hyprland.start", function()
 	-- ui and services
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("waybar")
-	hl.exec_cmd("dunst")
+	hl.exec_cmd("mako")
 
 	-- applets
 	hl.exec_cmd("nm-applet --indicator")

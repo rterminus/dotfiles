@@ -22,7 +22,7 @@ hl.config({
 		},
 
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 30,
 			render_power = 3,
 			color = "rgba(00000066)",

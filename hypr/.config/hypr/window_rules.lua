@@ -21,4 +21,4 @@ hl.window_rule({
 
 hl.layer_rule({ match = { namespace = "rofi" }, blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true, ignore_alpha = 0 })
-hl.layer_rule({ match = { namespace = "dunst" }, blur = true, ignore_alpha = 0 })
+hl.layer_rule({ match = { namespace = "notifications" }, blur = true, ignore_alpha = 0 })

@@ -3,7 +3,7 @@
     "position": "top",
     "exclusive": true,
     "passthrough": false,
-    "height": 28,
+    "height": 22,
     "margin-top": 0,
     "spacing": 0,
 
@@ -32,17 +32,16 @@
         "custom/separator",
         "battery",
         "custom/separator",
-        "tray"
     ],
 
     "hyprland/workspaces": {
         "all-outputs": true,
-        "format": "[{name}]",
+        "format": "{name}",
         "on-click": "activate"
     },
 
     "custom/media": {
-        "format": "[ med:{} ]",
+        "format": "med:{}",
         "exec": "playerctl metadata --format '{{artist}} - {{title}}' --follow 2>/dev/null",
         "max-length": 100,
         "ellipsis": true,
@@ -68,7 +67,7 @@
 
     "clock": {
         "interval": 1,
-        "format": "<span text-transform='lowercase'>[ {:%a, %e %b  %H:%M:%S} ]</span>",
+        "format": "<span text-transform='lowercase'>{:%a, %e %b  %H:%M:%S}</span>",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
 
