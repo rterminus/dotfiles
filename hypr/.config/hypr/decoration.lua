@@ -17,6 +17,7 @@ hl.config({
 			vibrancy = 0.35,
 			vibrancy_darkness = 0.35,
       special = false,
+			popups = true,
 			-- variant = "acrylic"
 		},
 

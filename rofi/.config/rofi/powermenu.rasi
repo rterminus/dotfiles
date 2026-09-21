@@ -6,10 +6,10 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #0D0D0DBB;
+    bg: #0A0A0A6E;
     fg: #eeeeee;
-    accent: #444444;
-    border-col: #444444;
+    accent: #444444BB;
+    border-col: #444444BB;
 
     background-color: transparent;
     text-color: @fg;
@@ -53,4 +53,8 @@ element selected {
 element-text {
     vertical-align: 0.5;
     text-color: inherit;
+}
+
+element-text selected {
+    font: "IosevkaTerm Nerd Font Bold 11";
 }

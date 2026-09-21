@@ -13,10 +13,10 @@ configuration {
 @theme "/dev/null"
 
 * {
-    bg: #0D0D0DBB;
-    bg-alt: #1A1A1ABB;
+    bg: #0A0A0A6E;
+    bg-alt: #1A1A1A99;
     fg: #eeeeee;
-    fg-alt: #B8B8B8BB;
+    fg-alt: #888888;
     accent: #444444BB;
 
     background-color: transparent;
@@ -48,13 +48,14 @@ inputbar {
 prompt {
     text-color: @fg-alt;
     padding: 0 4px 0 0;
-    font: "IosevkaTerm Nerd Font Bold 11";
+    font: "IosevkaTerm Nerd Font Italic 11";
 }
 
 entry {
     text-color: @fg;
     placeholder: "search...";
-    placeholder-color: @accent;
+    placeholder-color: #4C4C4C;
+    font: "IosevkaTerm Nerd Font Bold 11";
     blink: true;
 }
 
@@ -78,4 +79,8 @@ element selected {
 element-text {
     vertical-align: 0.5;
     text-color: inherit;
+}
+
+element-text selected {
+    font: "IosevkaTerm Nerd Font Bold 11";
 }

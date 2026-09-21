@@ -995,7 +995,7 @@ return {
 			formatters_by_ft = {
 				c = { "clang-format" },
 				cpp = { "clang-format" },
-				-- java = { "google-java-format" },
+				java = { "google-java-format" },
 				python = { "black", "isort" },
 				lua = { "stylua" },
 				vhdl = { "vsg" },
@@ -1398,6 +1398,7 @@ return {
 					"vhdl",
 					"vim",
 					"vimdoc",
+					"tmux",
 				},
 				auto_install = true,
 				highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
