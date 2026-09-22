@@ -5,7 +5,7 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + CONTROL + Return", hl.dsp.exec_cmd("kitty", { float = true, size = { 800, 500 } }))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("kitty -e yazi", { float = true, size = { 1280, 720 } }))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("rofi -show drun -config ~/.config/rofi/config.rasi"))
-hl.bind(mainMod .. " + SHIFT + Escape", hl.dsp.exec_cmd("kitty -e btop"))
+hl.bind(mainMod .. " + SHIFT + Escape", hl.dsp.exec_cmd("kitty -e btop", { float = true, size = { 1050, 750 } }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
 
 -- power menu
