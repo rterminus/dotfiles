@@ -1,41 +1,37 @@
 #!/usr/bin/env bash
 
-WPP_1080="$HOME/Pictures/asciiwpp2.png"
-WPP_1440="$HOME/Pictures/asciiwpp2_21x9.png"
-STATE_FILE="$HOME/.config/hypr/monitor_state.lua"
+HYPR_SOCK="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
 
-sleep 1 
+WALL_1440="$HOME/Pictures/asciiwpp2_21x9.png"
+WALL_1080="$HOME/Pictures/asciiwpp2.png"
 
 apply_hdmi() {
-    # write state to lua file (usando enabled = false)
-    echo 'hl.monitor({ output = "eDP-1", enabled = false })' > "$STATE_FILE"
-    echo 'hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100", position = "0x0", scale = 1 })' >> "$STATE_FILE"
-    
-    # reload config and apply wallpaper
-    hyprctl reload
-    awww img "$WPP_1440"
+    hyprctl eval 'hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100", position = "0x0", scale = 1, disabled = false })'
+    hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'
+    awww img "$WALL_1440" --outputs HDMI-A-1
 }
 
-apply_edp() {
-    # invert state (usando enabled = false)
-    echo 'hl.monitor({ output = "HDMI-A-1", enabled = false })' > "$STATE_FILE"
-    echo 'hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1 })' >> "$STATE_FILE"
-    
-    hyprctl reload
-    awww img "$WPP_1080"
+apply_laptop_only() {
+    hyprctl eval 'hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1, disabled = false })'
+    hyprctl eval 'hl.monitor({ output = "HDMI-A-1", disabled = true })'
+    awww img "$WALL_1080" --outputs eDP-1
 }
 
-# 1. initial check
-if hyprctl monitors all | grep -q "Monitor HDMI-A-1"; then
-    apply_hdmi
-else
-    apply_edp
-fi
+check_and_apply() {
+    if hyprctl monitors -j | jq -e '.[] | select(.name=="HDMI-A-1")' >/dev/null 2>&1; then
+        apply_hdmi
+    else
+        apply_laptop_only
+    fi
+}
 
-# 2. listen to real-time events
-socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do
+check_and_apply
+
+socat -U - UNIX-CONNECT:"$HYPR_SOCK" | while read -r line; do
     case "$line" in
-        monitoradded*HDMI-A-1*) apply_hdmi ;;
-        monitorremoved*HDMI-A-1*) apply_edp ;;
+        monitoradded*|monitorremoved*)
+            sleep 1
+            check_and_apply
+            ;;
     esac
 done

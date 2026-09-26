@@ -8,10 +8,6 @@ hl.on("hyprland.start", function()
 	-- display and hardware
 	hl.exec_cmd("hyprctl setcursor NotwaitaBlack 24")
 	hl.exec_cmd("brightnessctl set 10%")
-	-- Nota: Removi o xrandr daqui pois o Wayland não usa xrandr e o script bash já vai gerir o monitor principal.
-
-	-- wallpaper daemon
-	hl.exec_cmd("awww-daemon")
 
 	-- ui and services
 	hl.exec_cmd("hypridle")
@@ -32,4 +28,7 @@ hl.on("hyprland.start", function()
 
 	-- monitors & wallpapers
 	hl.exec_cmd("~/dotfiles/bin/monitor_manager.sh")
+
+	-- wallpaper daemon
+	hl.exec_cmd("awww-daemon")
 end)
