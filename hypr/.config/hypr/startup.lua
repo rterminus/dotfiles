@@ -26,9 +26,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("~/dotfiles/bin/battery-notify.sh")
 	hl.exec_cmd("~/dotfiles/bin/sunset.sh")
 
-	-- monitors & wallpapers
-	hl.exec_cmd("~/dotfiles/bin/monitor_manager.sh")
-
 	-- wallpaper daemon
 	hl.exec_cmd("awww-daemon")
+
+	-- monitors & wallpapers
+	hl.exec_cmd("~/dotfiles/bin/monitor_manager.sh > /tmp/monitor_manager.log 2>&1")
 end)

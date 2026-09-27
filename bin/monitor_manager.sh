@@ -5,6 +5,11 @@ HYPR_SOCK="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
 WALL_1440="$HOME/Pictures/asciiwpp2_21x9.png"
 WALL_1080="$HOME/Pictures/asciiwpp2.png"
 
+for i in $(seq 1 25); do
+    awww query >/dev/null 2>&1 && break
+    sleep 0.2
+done
+
 apply_hdmi() {
     hyprctl eval 'hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@100", position = "0x0", scale = 1, disabled = false })'
     hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'
