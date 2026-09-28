@@ -3,7 +3,7 @@ hl.config({
 		kb_layout = "us, br",
 		kb_variant = ", abnt2",
 		kb_model = "",
-		kb_options = "compose:ralt,lv3:ralt_alt,caps:swapescape",
+		kb_options = "compose:ralt,lv3:ralt_alt",
 		kb_rules = "",
 		follow_mouse = 1,
 
