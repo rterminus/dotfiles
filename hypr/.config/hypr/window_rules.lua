@@ -15,6 +15,7 @@ hl.window_rule({
 	float = true,
 	size = { 700, 500 },
 	center = true,
+	suppress_event = "maximize",
 })
 hl.window_rule({
 	match = { class = "kitty" },
