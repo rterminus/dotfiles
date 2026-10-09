@@ -75,3 +75,10 @@ vim.keymap.set("n", "<leader>zI", "<cmd>Telekasten insert_img_link<CR>", { desc 
 vim.keymap.set("n", "<leader>zt", "<cmd>Telekasten new_templated_note<CR>", { desc = "new templated note" })
 vim.keymap.set("n", "<leader>zT", "<cmd>TodoTelescope cwd=~/second-brain<CR>", { desc = "to-do" })
 vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+
+local clipboard = require("utils.clipboard")
+
+vim.keymap.set("v", "<leader>cp", function()
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+	vim.schedule(clipboard.copy_file_range)
+end, { desc = "copy file path and lines to clipboard" })
