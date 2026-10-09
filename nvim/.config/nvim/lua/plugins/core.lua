@@ -1115,6 +1115,10 @@ return {
 					providers = {
 						lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
 						dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+						lsp = { fallbacks = {} },
+					},
+					per_filetype = {
+						opencode_ask = { "lsp", "buffer" },
 					},
 				},
 				cmdline = {
@@ -1625,7 +1629,31 @@ die
 			indent = { enabled = true },
 			input = { enabled = true },
 			notifier = { enabled = false, timeout = 3000 },
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				win = {
+					input = {
+						keys = {
+							["<a-o>"] = { "opencode_send", mode = { "n", "i" } },
+						},
+					},
+				},
+				actions = {
+					opencode_send = function(picker) ---@param picker snacks.Picker
+						local items = vim.tbl_map(function(item) ---@param item snacks.picker.Item
+							return item.file
+									and require("opencode").format({
+										path = item.file,
+										from = item.pos,
+										to = item.end_pos,
+									})
+								or item.text
+						end, picker:selected({ fallback = true }))
+
+						require("opencode").prompt(table.concat(items, ", ") .. " ")
+					end,
+				},
+			},
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			statuscolumn = { enabled = false },
@@ -1805,5 +1833,25 @@ die
 	{
 		"Chaitanyabsprip/present.nvim",
 		opts = {},
+	},
+	{
+		"nickjvandyke/opencode.nvim",
+		config = function()
+			---@type opencode.Opts
+			vim.g.opencode_opts = {}
+
+			vim.keymap.set({ "n", "x" }, "<C-a>", function()
+				require("opencode").ask("@this: ")
+			end, { desc = "Ask OpenCode…" })
+			vim.keymap.set({ "n", "x" }, "<C-x>", function()
+				require("opencode").select()
+			end, { desc = "Select OpenCode…" })
+			vim.keymap.set({ "n", "x" }, "go", function()
+				return require("opencode").operator("@this")
+			end, { desc = "Send range to OpenCode", expr = true })
+			vim.keymap.set({ "n" }, "goo", function()
+				return require("opencode").operator("@this") .. "_"
+			end, { desc = "Send line to OpenCode", expr = true })
+		end,
 	},
 }
