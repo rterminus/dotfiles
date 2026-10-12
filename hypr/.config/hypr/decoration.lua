@@ -9,7 +9,7 @@ hl.config({
 			size = 10,
 			passes = 2,
       contrast = 0.9,
-			new_optimizations = true,
+			new_optimizations = false,
 			ignore_opacity = true,
 			xray = false,
 			noise = 0.02,
