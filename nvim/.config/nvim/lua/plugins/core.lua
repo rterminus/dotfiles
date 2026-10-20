@@ -945,6 +945,7 @@ return {
 					},
 				},
 				vhdl_ls = {},
+				sqls = {},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
