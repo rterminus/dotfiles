@@ -949,10 +949,17 @@ return {
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(
-				ensure_installed,
-				{ "stylua", "prettierd", "markdownlint", "codelldb", "jdtls", "java-debug-adapter", "java-test", "vsg" }
-			)
+			vim.list_extend(ensure_installed, {
+				"stylua",
+				"prettierd",
+				"markdownlint",
+				"codelldb",
+				"jdtls",
+				"java-debug-adapter",
+				"java-test",
+				"vsg",
+				"sqlfluff",
+			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
@@ -1011,6 +1018,7 @@ return {
 				markdown = { "prettier", "prettierd", stop_after_first = true },
 				telekasten = { "prettier", "prettierd", stop_after_first = true },
 				tex = { "tex-fmt" },
+				sql = { "sqlfluff" },
 			},
 			formatters = {
 				["clang-format"] = {},
@@ -1112,7 +1120,7 @@ return {
 					},
 				},
 				sources = {
-					default = { "lsp", "path", "snippets", "lazydev", "buffer", "dadbod" },
+					default = { "lsp", "path", "snippets", "lazydev", "buffer" },
 					providers = {
 						lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
 						dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
@@ -1120,6 +1128,9 @@ return {
 					},
 					per_filetype = {
 						opencode_ask = { "lsp", "buffer" },
+						sql = { "dadbod", "snippets", "buffer" },
+						mysql = { "dadbod", "snippets", "buffer" },
+						plsql = { "dadbod", "snippets", "buffer" },
 					},
 				},
 				cmdline = {
@@ -1523,6 +1534,7 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
+				sql = { "sqlfluff" },
 			}
 
 			local markdownlint = lint.linters.markdownlint
