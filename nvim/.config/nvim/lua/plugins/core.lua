@@ -1018,7 +1018,7 @@ return {
 				markdown = { "prettier", "prettierd", stop_after_first = true },
 				telekasten = { "prettier", "prettierd", stop_after_first = true },
 				tex = { "tex-fmt" },
-				sql = { "sqlfluff" },
+				sql = { "sqlfmt" },
 			},
 			formatters = {
 				["clang-format"] = {},
