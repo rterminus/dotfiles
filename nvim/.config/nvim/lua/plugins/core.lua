@@ -1019,6 +1019,7 @@ return {
 				telekasten = { "prettier", "prettierd", stop_after_first = true },
 				tex = { "tex-fmt" },
 				sql = { "sqlfmt" },
+				xml = { "xmlformatter" },
 			},
 			formatters = {
 				["clang-format"] = {},
